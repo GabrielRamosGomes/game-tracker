@@ -30,6 +30,34 @@ class IGDB_Client {
 
         return response.json()
     }
+
+    /**
+     * Fetch all games from IGDB API, use this with caution as it will return a lot of data.
+     * Main used is to have an initial list of games to work with.
+     */
+    public async fetchAllGames(batchSize: number = 500) {
+        let offset = 0
+        const allGames = []
+
+        while(true) {
+            const query = `
+                fields name, game_type, genres, first_release_date, rating, storyline, url, involved_companies, game_status, expansions, dlcs, age_ratings, collections, cover, aggregated_rating, game_engines;
+                limit 500; 
+                offset ${offset};
+                `
+            
+            const batch: unknown[] = await this.request('games', query);
+            allGames.push(...batch)
+            if(batch.length < batchSize) break;
+            offset += batchSize
+        }
+
+        return allGames
+    }
+
+    public async fetchTimeToBeat() {
+
+    }
 }
 
 const igbd_client = new IGDB_Client(
