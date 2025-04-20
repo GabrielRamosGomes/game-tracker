@@ -18,16 +18,21 @@ services:
             - ${POSTGRES_PORT}:${POSTGRES_PORT}
 
     web-app:
-      env_file:
-        - .env
-      environment:
-        - IGDB_CLIENT_ID=${IGDB_CLIENT_ID}
-        - IGDB_CLIENT_SECRET=${IGDB_CLIENT_SECRET}
-      build:
-        context: ./
-      depends_on:
-        postgres:
-          condition: service_healthy
-      ports:
-        - "3000:3000"
-      command: ["sh", "-c", "pnpm drizzle-kit push --config drizzle.config.ts && node .output/server/index.mjs"]
+        env_file:
+            - .env
+        environment:
+            - IGDB_CLIENT_ID=${IGDB_CLIENT_ID}
+            - IGDB_CLIENT_SECRET=${IGDB_CLIENT_SECRET}
+        build:
+            context: ./
+        depends_on:
+            postgres:
+                condition: service_healthy
+        ports:
+            - '3000:3000'
+        command:
+            [
+                'sh',
+                '-c',
+                'pnpm drizzle-kit push --config drizzle.config.ts && node .output/server/index.mjs'
+            ]
