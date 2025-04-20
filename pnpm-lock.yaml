@@ -23,18 +23,12 @@ importers:
       drizzle-orm:
         specifier: ^0.42.0
         version: 0.42.0(@types/pg@8.11.13)(pg@8.14.1)
-      eslint:
-        specifier: ^9.0.0
-        version: 9.25.0(jiti@2.4.2)
       nuxt:
         specifier: ^3.16.2
         version: 3.16.2(@netlify/blobs@8.2.0)(@parcel/watcher@2.5.1)(@types/node@22.14.1)(db0@0.3.2(drizzle-orm@0.42.0(@types/pg@8.11.13)(pg@8.14.1)))(drizzle-orm@0.42.0(@types/pg@8.11.13)(pg@8.14.1))(eslint@9.25.0(jiti@2.4.2))(ioredis@5.6.1)(lightningcss@1.29.2)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.40.0)(terser@5.39.0)(tsx@4.19.3)(typescript@5.8.3)(vite@6.3.2(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(yaml@2.7.1)
       pg:
         specifier: ^8.14.1
         version: 8.14.1
-      typescript:
-        specifier: ^5.6.3
-        version: 5.8.3
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.8.3)
@@ -51,9 +45,18 @@ importers:
       drizzle-kit:
         specifier: ^0.31.0
         version: 0.31.0
+      eslint:
+        specifier: ^9.0.0
+        version: 9.25.0(jiti@2.4.2)
+      prettier:
+        specifier: ^3.5.3
+        version: 3.5.3
       tsx:
         specifier: ^4.19.3
         version: 4.19.3
+      typescript:
+        specifier: ^5.6.3
+        version: 5.8.3
       vitest:
         specifier: ^3.1.1
         version: 3.1.1(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1)
@@ -4386,6 +4389,11 @@ packages:
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+
+  prettier@3.5.3:
+    resolution: {integrity: sha512-QQtaxnoDJeAkDvDKWCLiwIXkTgRhwYDEQCghU9Z6q03iyek/rxRh/2lC3HB7P8sWT2xC/y5JDctPLBIGzHKbhw==}
+    engines: {node: '>=14'}
+    hasBin: true
 
   pretty-bytes@6.1.1:
     resolution: {integrity: sha512-mQUvGU6aUFQ+rNvTIAcZuWGRT9a6f6Yrg9bHs4ImKF+HZCEK+plBvnAZYSIQztknZF2qnzNtr6F8s0+IuptdlQ==}
@@ -10221,6 +10229,8 @@ snapshots:
       - supports-color
 
   prelude-ls@1.2.1: {}
+
+  prettier@3.5.3: {}
 
   pretty-bytes@6.1.1: {}
 
