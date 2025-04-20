@@ -1,0 +1,7 @@
+trailingComma: 'none'
+tabWidth: 4
+semi: false
+singleQuote: true
+bracketSameLine: true
+printWidth: 100
+vueIndentScriptAndStyle: true
