@@ -1,4 +1,4 @@
-name: Lint
+name: Lint and Format
 on:
     push:
         branches:
@@ -8,13 +8,18 @@ on:
             - main
 
 jobs:
-    lint:
+    check:
         runs-on: ubuntu-latest
         container:
             image: node:22-alpine
+
+        strategy:
+            matrix:
+                command: [lint, format]
+
         steps:
             - name: Checkout Repository
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Enable corepack
               run: corepack enable
@@ -22,22 +27,5 @@ jobs:
             - name: Install dependencies
               run: pnpm install
 
-            - name: Run lint
-              run: pnpm lint
-
-    format:
-        runs-on: ubuntu-latest
-        container:
-            image: node:22-alpine
-        steps:
-            - name: Checkout Repository
-              uses: actions/checkout@v2
-
-            - name: Enable corepack
-              run: corepack enable
-
-            - name: Install dependencies
-              run: pnpm install
-
-            - name: Run format
-              run: pnpm format
+            - name: Run ${{ matrix.command }}
+              run: pnpm ${{ matrix.command }}
