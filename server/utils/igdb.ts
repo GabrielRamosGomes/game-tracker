@@ -18,7 +18,7 @@ class IGDB_Client {
     }
 
     private async request<T>(endpoint: string, body: string): Promise<T> {
-        const response = await fetch(`${this.base_url}/${endpoint}`, {
+        const response = await $fetch(`${this.base_url}/${endpoint}`, {
             method: "POST",
             headers: this.headers,
             body: body,
