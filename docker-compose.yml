@@ -20,6 +20,9 @@ services:
     web-app:
       env_file:
         - .env
+      environment:
+        - IGDB_CLIENT_ID=${IGDB_CLIENT_ID}
+        - IGDB_CLIENT_SECRET=${IGDB_CLIENT_SECRET}
       build:
         context: ./
       depends_on:
