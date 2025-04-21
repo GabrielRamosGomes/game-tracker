@@ -33,7 +33,7 @@ class IGDB_Client {
 
     /**
      * Fetch all games from IGDB API, use this with caution as it will return a lot of data.
-     * Main used is to have an initial list of games to work with.
+     * Main use is to have an initial list of games to work with.
      */
     public async fetchAllGames(batchSize: number = 500) {
         let offset = 0
