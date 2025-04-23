@@ -120,3 +120,11 @@ export const keywords = pgTable('keywords', {
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull(),
 })
+
+export const game_keywords = pgTable('game_keywords', {
+    id: serial('id').primaryKey(),
+    game_id: integer('game_id').notNull().references(() => games.id),
+    keyword_id: integer('keyword_id').notNull().references(() => keywords.id),
+    updated_at: timestamp('updated_at').defaultNow().notNull(),
+    created_at: timestamp('created_at').defaultNow().notNull(),
+})
