@@ -39,25 +39,23 @@ class IGDB_Client {
         let offset = 0
         const allGames = []
 
-        while(true) {
+        while (true) {
             const query = `
                 fields name, game_type, genres, first_release_date, rating, storyline, url, involved_companies, game_status, expansions, dlcs, age_ratings, collections, cover, aggregated_rating, game_engines;
                 limit 500; 
                 offset ${offset};
                 `
-            
-            const batch: unknown[] = await this.request('games', query);
+
+            const batch: unknown[] = await this.request('games', query)
             allGames.push(...batch)
-            if(batch.length < batchSize) break;
+            if (batch.length < batchSize) break
             offset += batchSize
         }
 
         return allGames
     }
 
-    public async fetchTimeToBeat() {
-
-    }
+    public async fetchTimeToBeat() {}
 }
 
 const igbd_client = new IGDB_Client(
