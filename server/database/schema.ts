@@ -97,22 +97,6 @@ export const companies_status = pgTable('company_status', {
     name: text('name').notNull(),
 })
 
-export const games_developed_by_companies = pgTable('games_developed_by_companies', {
-    id: serial('id').primaryKey(),
-    game_id: integer('game_id').notNull().references(() => games.id),
-    company_id: integer('company_id').notNull().references(() => companies.id),
-    updated_at: timestamp('updated_at').defaultNow().notNull(),
-    created_at: timestamp('created_at').defaultNow().notNull(),
-});
-
-export const games_published_by_companies = pgTable('games_published_by_companies', {
-    id: serial('id').primaryKey(),
-    game_id: integer('game_id').notNull().references(() => games.id),
-    company_id: integer('company_id').notNull().references(() => companies.id),
-    updated_at: timestamp('updated_at').defaultNow().notNull(),
-    created_at: timestamp('created_at').defaultNow().notNull(),
-});
-
 // Code is the ISO 3166-1 code for the country
 // Api used to fetch the country list: https://restcountries.com/v3.1/all
 // https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
