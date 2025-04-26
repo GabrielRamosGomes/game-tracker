@@ -1,9 +1,9 @@
-import { pgTable, serial, text, timestamp, integer, boolean } from 'drizzle-orm/pg-core'
+import { pgTable, serial, text, timestamp, integer, boolean, decimal  } from 'drizzle-orm/pg-core'
 
 export const games = pgTable('games', {
     id: serial('id').primaryKey(),
-    aggregated_rating: integer('aggregated_rating').notNull(),
-    rating: integer('rating').notNull(),
+    aggregated_rating: decimal('aggregated_rating').notNull(),
+    rating: decimal('rating').notNull(),
     game_engine: integer('game_engine').notNull().references(() => game_engines.id),
     game_mode: integer('game_mode').notNull().references(() => game_modes.id),
     game_type: integer('game_type').notNull().references(() => game_types.id),
@@ -92,23 +92,12 @@ export const companies = pgTable('companies', {
     created_at: timestamp('created_at').defaultNow().notNull(),
 })
 
-// Code is the ISO 3166-1 code for the country
-// Api used to fetch the country list: https://restcountries.com/v3.1/all
-// https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
-export const countries = pgTable('countries', {
-    id: serial('id').primaryKey(),
-    name: text('name').notNull(),
-    code: text('code').notNull(),
-    updated_at: timestamp('updated_at').defaultNow().notNull(),
-    created_at: timestamp('created_at').defaultNow().notNull(),
-})
-
 export const companies_status = pgTable('company_status', {
     id: serial('id').primaryKey(),
     name: text('name').notNull(),
 })
 
-export const games_developed_by_companies = pgTable('games_by_companies', {
+export const games_developed_by_companies = pgTable('games_developed_by_companies', {
     id: serial('id').primaryKey(),
     game_id: integer('game_id').notNull().references(() => games.id),
     company_id: integer('company_id').notNull().references(() => companies.id),
@@ -123,6 +112,17 @@ export const games_published_by_companies = pgTable('games_published_by_companie
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull(),
 });
+
+// Code is the ISO 3166-1 code for the country
+// Api used to fetch the country list: https://restcountries.com/v3.1/all
+// https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
+export const countries = pgTable('countries', {
+    id: serial('id').primaryKey(),
+    name: text('name').notNull(),
+    code: text('code').notNull(),
+    updated_at: timestamp('updated_at').defaultNow().notNull(),
+    created_at: timestamp('created_at').defaultNow().notNull(),
+})
 
 export const time_to_beat = pgTable('time_to_beat', {
     id: serial('id').primaryKey(),
