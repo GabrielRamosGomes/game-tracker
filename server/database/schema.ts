@@ -114,6 +114,7 @@ export const companies_status = pgTable('company_status', {
     id: serial('id').primaryKey(),
     name: text('name').notNull().unique()
 })
+export type NewCompanyStatus = typeof companies_status.$inferInsert
 
 // Code is the ISO 3166-1 code for the country
 // Api used to fetch the country list: https://restcountries.com/v3.1/all
@@ -125,6 +126,7 @@ export const countries = pgTable('countries', {
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewCountry = typeof countries.$inferInsert
 
 export const time_to_beat = pgTable('time_to_beat', {
     id: serial('id').primaryKey(),

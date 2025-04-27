@@ -1,3 +1,5 @@
+import type { NewCompanyStatus } from "../database/schema"
+
 class IGDB_Client {
     private client_id: string
     private access_token: string
@@ -17,11 +19,17 @@ class IGDB_Client {
         }
     }
 
-    private async request<T>(endpoint: string, body: string): Promise<T> {
-        // sleep to avoid rate limiting
-        await this.sleep()
+    // sleep function to avoid rate limiting (4 requests per second)
+    private sleep(ms: number = 250) {
+        return new Promise((resolve) => setTimeout(resolve, ms))
+    }
 
-        const response = await $fetch(`${this.base_url}/${endpoint}`, {
+    private async request<T>(endpoint: string, body: string, shouldSleep: boolean = true): Promise<T> {
+        // sleep to avoid rate limiting
+        if (shouldSleep)
+            await this.sleep()
+
+        const response = await fetch(`${this.base_url}/${endpoint}`, {
             method: 'POST',
             headers: this.headers,
             body: body
@@ -58,15 +66,23 @@ class IGDB_Client {
         return allGames
     }
 
-    // sleep function to avoid rate limiting (4 requests per second)
-    private sleep(ms: number = 250) {
-        return new Promise((resolve) => setTimeout(resolve, ms))
+    public async fetchCompanyStatus() {
+        const query = `
+            fields name;
+            offset 0;
+            sort id asc;
+        `;
+
+        const shouldSleep = false
+        const companies: NewCompanyStatus[] = await this.request('company_statuses', query, shouldSleep)
+        
+        return companies
     }
 }
 
 const igbd_client = new IGDB_Client(
-    process.env.IGBD_CLIENT_ID as string,
-    process.env.IGBD_ACCESS_TOKEN as string
+    process.env.IGDB_CLIENT_ID as string,
+    process.env.IGDB_CLIENT_ACESS_TOKEN as string
 )
 
 export function useIGBD() {

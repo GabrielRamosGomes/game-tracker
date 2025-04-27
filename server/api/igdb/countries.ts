@@ -1,6 +1,8 @@
+import { useCountryService } from "~/server/database/services/countryService"
+
 export default defineEventHandler(async () => {
-    const countries = await fetchCountries()
-    const { db, schema } = useDrizzle()
+    const countryService = useCountryService()
+    const countries = await countryService.fetchCountries()
 
     if (!countries.length) {
         throw createError({
@@ -9,18 +11,10 @@ export default defineEventHandler(async () => {
         })
     }
 
-    let insertedCountries = 0
-    await db.transaction(async (tx) => {
-        const result = await tx.insert(schema.countries)
-            .values(countries)
-            .onConflictDoNothing()
-            .returning({ id: schema.countries.id })
-
-        insertedCountries = result.length
-    });
+    const insertedRecords = await countryService.insertCountries(countries)
 
     return {
-        message: `Inserted ${insertedCountries} countries into the database`,
+        message: `Inserted ${insertedRecords} countries into the database`,
     }
 
 })
