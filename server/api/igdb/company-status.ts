@@ -13,7 +13,7 @@ export default defineEventHandler(async () => {
         })
     }
 
-    const insertedRecords = await companyStatusService.insertCompanyStatuses(companyStatuses)
+    const insertedRecords = await companyStatusService.insertMany(companyStatuses)
 
     return {
         message: `Inserted ${insertedRecords} company statuses into the database`
