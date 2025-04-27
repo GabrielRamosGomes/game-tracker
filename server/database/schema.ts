@@ -73,22 +73,22 @@ export const platforms = pgTable('platforms', {
     slug: text('slug').notNull().unique(),
     platform_type: integer('platform_type')
         .notNull()
-        .references(() => platforms_types.id),
+        .references(() => platform_types.id),
     platform_family: integer('platform_family')
         .notNull()
-        .references(() => platforms_families.id),
+        .references(() => platform_families.id),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
 
-export const platforms_types = pgTable('platforms_types', {
+export const platform_types = pgTable('platform_types', {
     id: serial('id').primaryKey(),
     name: text('name').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
 
-export const platforms_families = pgTable('platforms_families', {
+export const platform_families = pgTable('platform_families', {
     id: serial('id').primaryKey(),
     name: text('name').notNull().unique(),
     slug: text('slug').notNull().unique(),
