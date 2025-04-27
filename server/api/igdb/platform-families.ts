@@ -1,0 +1,21 @@
+import { usePlatformFamilyService } from '~/server/services/platformFamilyService'
+
+export default defineEventHandler(async () => {
+    const igbd_client = useIGBD()
+    const platformFamilyService = usePlatformFamilyService()
+
+    const families = await igbd_client.fetchPlatformFamilies()
+
+    if (!families.length) {
+        throw createError({
+            statusCode: 400,
+            statusMessage: 'No game Types found'
+        })
+    }
+
+    const insertedRecords = await platformFamilyService.insertMany(families)
+
+    return {
+        message: `Inserted ${insertedRecords} platform families into the database`
+    }
+})

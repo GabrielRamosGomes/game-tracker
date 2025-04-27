@@ -161,7 +161,7 @@ CREATE TABLE "platforms" (
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
 	"platform_type" integer NOT NULL,
-	"platform_family" integer NOT NULL,
+	"platform_family" integer,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "platforms_name_unique" UNIQUE("name"),

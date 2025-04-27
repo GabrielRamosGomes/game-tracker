@@ -3,7 +3,8 @@ import type {
     NewGameMode,
     NewGameType,
     NewGenre,
-    NewKeyword
+    NewKeyword,
+    NewPlatformFamily
 } from '../database/schema'
 
 class IGDB_Client {
@@ -73,7 +74,7 @@ class IGDB_Client {
     }
 
     /**
-     * Fetches all games from IGDB API
+     * Fetches all games from IGDB API, this might thake a while since there are a lot of games
      * @param batchSize The number of records to fetch in each request
      */
     public async fetchAllGames(batchSize: number = 500) {
@@ -144,7 +145,7 @@ class IGDB_Client {
     }
 
     /**
-     * Fetchs all keywords from IGDB AP
+     * Fetchs all keywords from IGDB API
      */
     public async fetchKeywords() {
         const query = `
@@ -155,6 +156,20 @@ class IGDB_Client {
         const keywords: NewKeyword[] = await this.batchRequest('keywords', query)
 
         return keywords
+    }
+
+    /**
+     * Fetchs all platform families from IGDB API
+     */
+    public async fetchPlatformFamilies() {
+        const query = `
+            fields name,slug;
+            offset 0;
+            sort id asc;
+        `
+        const platformFamilies: NewPlatformFamily[] = await this.request('platform_families', query)
+
+        return platformFamilies
     }
 }
 

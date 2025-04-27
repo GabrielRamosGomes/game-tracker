@@ -75,7 +75,6 @@ export const platforms = pgTable('platforms', {
         .notNull()
         .references(() => platform_types.id),
     platform_family: integer('platform_family')
-        .notNull()
         .references(() => platform_families.id),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
@@ -95,6 +94,7 @@ export const platform_families = pgTable('platform_families', {
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewPlatformFamily = typeof platform_families.$inferInsert
 
 export const companies = pgTable('companies', {
     id: serial('id').primaryKey(),
