@@ -1,6 +1,8 @@
+import { useCompanyStatusService } from "~/server/services/companyStatusService"
+
 export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
-    const { db, schema } = useDrizzle()
+    const companyStatusService = useCompanyStatusService()
 
     const companyStatuses = await igbd_client.fetchCompanyStatus()
     
@@ -11,18 +13,10 @@ export default defineEventHandler(async () => {
         })
     }
     
-    let insertedCompanyStatuses = 0;
-    await db.transaction(async (tx) => {
-        const result = await tx.insert(schema.companies_status)
-            .values(companyStatuses)
-            .onConflictDoNothing()
-            .returning({ id: schema.companies_status.id })
-
-        insertedCompanyStatuses = result.length
-    });
+    const insertedRecords = await companyStatusService.insertCompanyStatuses(companyStatuses)
 
     return {
-        message: `Inserted ${insertedCompanyStatuses} company statuses into the database`,
+        message: `Inserted ${insertedRecords} company statuses into the database`,
     }
 
 })

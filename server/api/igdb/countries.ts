@@ -1,4 +1,4 @@
-import { useCountryService } from "~/server/database/services/countryService"
+import { useCountryService } from "~/server/services/countryService"
 
 export default defineEventHandler(async () => {
     const countryService = useCountryService()

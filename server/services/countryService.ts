@@ -1,5 +1,5 @@
 import { BaseService } from "./baseService"
-import type { NewCountry } from "../schema"
+import type { NewCountry } from "../database/schema"
 
 interface ISO_3166_Country {
     name: {
