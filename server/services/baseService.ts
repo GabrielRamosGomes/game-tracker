@@ -1,7 +1,7 @@
 import type { NodePgDatabase } from 'drizzle-orm/node-postgres'
 import type * as schema from '../database/schema'
 
-export class BaseService {
+export abstract class BaseService {
     protected db: NodePgDatabase<typeof schema>
     protected schema: typeof schema
 
@@ -11,4 +11,6 @@ export class BaseService {
         this.db = db
         this.schema = schema
     }
+
+    abstract insertMany(data: unknown[]): Promise<number>
 }
