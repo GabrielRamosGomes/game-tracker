@@ -9,7 +9,7 @@ export default defineEventHandler(async () => {
     if (!families.length) {
         throw createError({
             statusCode: 400,
-            statusMessage: 'No plaform families found'
+            statusMessage: 'No platform families found'
         })
     }
 

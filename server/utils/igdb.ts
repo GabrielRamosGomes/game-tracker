@@ -76,7 +76,7 @@ class IGDB_Client {
     }
 
     /**
-     * Fetches all games from IGDB API, this might thake a while since there are a lot of games
+     * Fetches all games from IGDB API, this might take a while since there are a lot of games
      * @param batchSize The number of records to fetch in each request
      */
     public async fetchAllGames(batchSize: number = 500) {
@@ -105,7 +105,7 @@ class IGDB_Client {
     }
 
     /**
-     * Fetches all game engines from IGDB API
+     * Fetches all game modes from IGDB API
      */
     public async fetchGameModes() {
         const query = `
@@ -119,7 +119,7 @@ class IGDB_Client {
     }
 
     /**
-     * Fetches all game engines from IGDB API
+     * Fetches all game types from IGDB API
      */
     public async fetchGameTypes() {
         const query = `

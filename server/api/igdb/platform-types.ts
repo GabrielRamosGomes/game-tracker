@@ -4,7 +4,7 @@ export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
     const platformTypeService = usePlatformTypeService()
 
-    const types = await igbd_client.fetchPlatformFamilies()
+    const types = await igbd_client.fetchPlatformTypes()
 
     if (!types.length) {
         throw createError({
