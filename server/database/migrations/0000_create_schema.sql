@@ -184,7 +184,7 @@ CREATE TABLE "time_to_beat" (
 	"game_id" integer NOT NULL,
 	"hastily" integer NOT NULL,
 	"normally" integer NOT NULL,
-	"leisurely" integer NOT NULL,
+	"completely" integer NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL
 );

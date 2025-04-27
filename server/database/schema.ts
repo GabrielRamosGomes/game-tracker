@@ -34,6 +34,7 @@ export const game_types = pgTable('game_types', {
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewGameType = typeof game_types.$inferInsert
 
 export const game_modes = pgTable('game_modes', {
     id: serial('id').primaryKey(),
@@ -136,7 +137,7 @@ export const time_to_beat = pgTable('time_to_beat', {
         .references(() => games.id),
     hastily: integer('hastily').notNull(),
     normally: integer('normally').notNull(),
-    completely: integer('leisurely').notNull(),
+    completely: integer('completely').notNull(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
