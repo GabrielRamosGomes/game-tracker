@@ -77,21 +77,12 @@ class IGDB_Client {
      * Main use is to have an initial list of games to work with.
      */
     public async fetchAllGames(batchSize: number = 500) {
-        let offset = 0
-        const allGames = []
-
-        while (true) {
-            const query = `
-                fields name, game_type, genres, first_release_date, rating, storyline, url, involved_companies, game_status, expansions, dlcs, age_ratings, collections, cover, aggregated_rating, game_engines;
-                limit 500; 
-                offset ${offset};
-                `
-
-            const batch: unknown[] = await this.request('games', query, true)
-            allGames.push(...batch)
-            if (batch.length < batchSize) break
-            offset += batchSize
-        }
+        const query = `
+            fields name, game_type, genres, first_release_date, rating, storyline, url, involved_companies, game_status, expansions, dlcs, age_ratings, collections, cover, aggregated_rating, game_engines;
+            limit ${batchSize};
+            offset 0;
+        `
+        const allGames: unknown[] = await this.batchRequest('games', query, batchSize)
 
         return allGames
     }
