@@ -103,11 +103,11 @@ class IGDB_Client {
     }
 }
 
-const igbd_client = new IGDB_Client(
+const igdb_client = new IGDB_Client(
     process.env.IGDB_CLIENT_ID as string,
     process.env.IGDB_CLIENT_ACESS_TOKEN as string
 )
 
 export function useIGBD() {
-    return igbd_client
+    return igdb_client
 }
