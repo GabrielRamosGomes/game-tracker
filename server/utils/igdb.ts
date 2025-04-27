@@ -73,8 +73,8 @@ class IGDB_Client {
     }
 
     /**
-     * Fetch all games from IGDB API, use this with caution as it will return a lot of data.
-     * Main use is to have an initial list of games to work with.
+     * Fetches all games from IGDB API
+     * @param batchSize The number of records to fetch in each request
      */
     public async fetchAllGames(batchSize: number = 500) {
         const query = `
@@ -87,6 +87,9 @@ class IGDB_Client {
         return allGames
     }
 
+    /**
+     * Fetches all game engines from IGDB API
+     */
     public async fetchCompanyStatus() {
         const query = `
             fields name;
@@ -98,6 +101,9 @@ class IGDB_Client {
         return companies
     }
 
+    /**
+     * Fetches all game engines from IGDB API
+     */
     public async fetchGameModes() {
         const query = `
             fields name,slug;
@@ -109,6 +115,9 @@ class IGDB_Client {
         return gameModes
     }
 
+    /**
+     * Fetches all game engines from IGDB API
+     */
     public async fetchGameTypes() {
         const query = `
             fields type;
@@ -120,6 +129,9 @@ class IGDB_Client {
         return gameTypes
     }
 
+    /**
+     * Fetchs all game engines from IGDB API
+     */
     public async fetchGenres() {
         const query = `
             fields name,slug;
@@ -131,6 +143,9 @@ class IGDB_Client {
         return genres
     }
 
+    /**
+     * Fetchs all keywords from IGDB AP
+     */
     public async fetchKeywords() {
         const query = `
             fields name,slug;
