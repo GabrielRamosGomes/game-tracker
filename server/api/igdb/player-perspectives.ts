@@ -9,7 +9,7 @@ export default defineEventHandler(async () => {
     if (!perspectives.length) {
         throw createError({
             statusCode: 400,
-            statusMessage: 'No game perspectives found'
+            statusMessage: 'No players perspectives found'
         })
     }
 

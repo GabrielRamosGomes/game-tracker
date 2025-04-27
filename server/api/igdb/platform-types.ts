@@ -9,7 +9,7 @@ export default defineEventHandler(async () => {
     if (!types.length) {
         throw createError({
             statusCode: 400,
-            statusMessage: 'No game Types found'
+            statusMessage: 'No platform types found'
         })
     }
 

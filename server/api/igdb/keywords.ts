@@ -9,7 +9,7 @@ export default defineEventHandler(async () => {
     if (!keywords.length) {
         throw createError({
             statusCode: 400,
-            statusMessage: 'No game Types found'
+            statusMessage: 'No keywords found'
         })
     }
 
