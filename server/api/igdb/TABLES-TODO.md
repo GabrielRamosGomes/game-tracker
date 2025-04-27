@@ -4,7 +4,7 @@
 
 - [x] countries
 - [x] company_status
-- [ ] game_modes
+- [x] game_modes
 - [ ] game_types
 - [ ] genres
 - [ ] keywords

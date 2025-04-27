@@ -1,4 +1,4 @@
-import type { NewCompanyStatus } from '../database/schema'
+import type { NewCompanyStatus, NewGameMode } from '../database/schema'
 
 class IGDB_Client {
     private client_id: string
@@ -27,7 +27,7 @@ class IGDB_Client {
     private async request<T>(
         endpoint: string,
         body: string,
-        shouldSleep: boolean = true
+        shouldSleep: boolean = false
     ): Promise<T> {
         // sleep to avoid rate limiting
         if (shouldSleep) await this.sleep()
@@ -60,7 +60,7 @@ class IGDB_Client {
                 offset ${offset};
                 `
 
-            const batch: unknown[] = await this.request('games', query)
+            const batch: unknown[] = await this.request('games', query, true)
             allGames.push(...batch)
             if (batch.length < batchSize) break
             offset += batchSize
@@ -75,15 +75,20 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-
-        const shouldSleep = false
-        const companies: NewCompanyStatus[] = await this.request(
-            'company_statuses',
-            query,
-            shouldSleep
-        )
+        const companies: NewCompanyStatus[] = await this.request('company_statuses', query)
 
         return companies
+    }
+
+    public async fetchGameModes() {
+        const query = `
+            fields name,slug;
+            offset 0;
+            sort id asc;
+        `
+        const gameModes: NewGameMode[] = await this.request('game_modes', query)
+
+        return gameModes
     }
 }
 
