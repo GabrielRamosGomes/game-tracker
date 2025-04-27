@@ -7,7 +7,7 @@
 - [x] game_modes
 - [x] game_types
 - [x] genres
-- [ ] keywords
+- [x] keywords
 - [ ] platforms_families
 - [ ] platforms_types
 - [ ] player_perspectives
