@@ -1,0 +1,21 @@
+import { useGameTypeService } from '~/server/services/gameTypeService'
+
+export default defineEventHandler(async () => {
+    const igbd_client = useIGBD()
+    const gameTypeService = useGameTypeService()
+
+    const gameTypes = await igbd_client.fetchGameTypes()
+
+    if (!gameTypes.length) {
+        throw createError({
+            statusCode: 400,
+            statusMessage: 'No game Types found'
+        })
+    }
+
+    const insertedRecords = await gameTypeService.insertMany(gameTypes)
+
+    return {
+        message: `Inserted ${insertedRecords} game types into the database`
+    }
+})

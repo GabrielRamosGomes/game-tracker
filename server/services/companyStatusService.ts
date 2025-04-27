@@ -1,20 +1,15 @@
 import { BaseService } from './baseService'
 import type { NewCompanyStatus } from '../database/schema'
+import { companies_status } from '../database/schema'
 
-class CountryService extends BaseService {
+class CompanyStatus extends BaseService {
     public async insertMany(statuses: NewCompanyStatus[]) {
-        const result = await this.db
-            .insert(this.schema.companies_status)
-            .values(statuses)
-            .onConflictDoNothing()
-            .returning({ id: this.schema.companies_status.id })
-
-        return result.length
+        return await this.insert(statuses, this.schema.companies_status.id)
     }
 }
 
-const countryService = new CountryService()
+const companyStatus = new CompanyStatus(companies_status)
 
 export function useCompanyStatusService() {
-    return countryService
+    return companyStatus
 }

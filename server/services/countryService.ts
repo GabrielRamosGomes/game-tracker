@@ -1,5 +1,6 @@
 import { BaseService } from './baseService'
 import type { NewCountry } from '../database/schema'
+import { countries } from '../database/schema'
 
 interface ISO_3166_Country {
     name: {
@@ -10,13 +11,7 @@ interface ISO_3166_Country {
 
 class CountryService extends BaseService {
     public async insertMany(countries: NewCountry[]) {
-        const result = await this.db
-            .insert(this.schema.countries)
-            .values(countries)
-            .onConflictDoNothing()
-            .returning({ id: this.schema.countries.id })
-
-        return result.length
+        this.insert(countries, this.schema.countries.id)
     }
 
     public async fetchCountries() {
@@ -38,7 +33,7 @@ class CountryService extends BaseService {
     }
 }
 
-const countryService = new CountryService()
+const countryService = new CountryService(countries)
 
 export function useCountryService() {
     return countryService
