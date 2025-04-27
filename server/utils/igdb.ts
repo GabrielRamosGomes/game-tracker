@@ -5,7 +5,8 @@ import type {
     NewGenre,
     NewKeyword,
     NewPlatformFamily,
-    NewPlatformType
+    NewPlatformType,
+    NewPlayerPerspective
 } from '../database/schema'
 
 class IGDB_Client {
@@ -185,6 +186,20 @@ class IGDB_Client {
         const platformTypes: NewPlatformType[] = await this.request('platform_types', query)
 
         return platformTypes
+    }
+
+    /**
+     * Fetchs all player perspectives from IGDB API
+     */
+    public async fetchPlayerPerspectives() {
+        const query = `
+            fields name,slug;
+            offset 0;
+            sort id asc;
+        `
+        const playerPerspectives: NewPlayerPerspective[] = await this.request('player_perspectives', query)
+
+        return playerPerspectives
     }
 }
 

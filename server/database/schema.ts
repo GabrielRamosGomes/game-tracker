@@ -167,6 +167,7 @@ export const player_perspectives = pgTable('player_perspectives', {
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewPlayerPerspective = typeof player_perspectives.$inferInsert
 
 export const game_player_perspectives = pgTable('game_player_perspectives', {
     id: serial('id').primaryKey(),
