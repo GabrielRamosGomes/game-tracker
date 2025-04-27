@@ -23,7 +23,7 @@ services:
             - .env
         environment:
             - IGDB_CLIENT_ID=${IGDB_CLIENT_ID}
-            - IGDB_CLIENT_ACESS_TOKEN=${IGDB_CLIENT_ACESS_TOKEN}
+            - IGDB_CLIENT_ACCESS_TOKEN=${IGDB_CLIENT_ACCESS_TOKEN}
         build:
             context: ./
         depends_on:
