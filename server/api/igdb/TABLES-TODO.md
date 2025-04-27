@@ -9,7 +9,7 @@
 - [x] genres
 - [x] keywords
 - [x] platform_families
-- [ ] platform_types
+- [x] platform_types
 - [ ] player_perspectives
 
 ### Insert Dependent Tables

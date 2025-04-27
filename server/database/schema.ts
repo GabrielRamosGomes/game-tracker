@@ -86,6 +86,7 @@ export const platform_types = pgTable('platform_types', {
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewPlatformType = typeof platform_types.$inferInsert
 
 export const platform_families = pgTable('platform_families', {
     id: serial('id').primaryKey(),

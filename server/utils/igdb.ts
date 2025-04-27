@@ -4,7 +4,8 @@ import type {
     NewGameType,
     NewGenre,
     NewKeyword,
-    NewPlatformFamily
+    NewPlatformFamily,
+    NewPlatformType
 } from '../database/schema'
 
 class IGDB_Client {
@@ -170,6 +171,20 @@ class IGDB_Client {
         const platformFamilies: NewPlatformFamily[] = await this.request('platform_families', query)
 
         return platformFamilies
+    }
+
+    /**
+     * Fetchs all platform types from IGDB API
+     */
+    public async fetchPlatformTypes() {
+        const query = `
+            fields name;
+            offset 0;
+            sort id asc;
+        `
+        const platformTypes: NewPlatformType[] = await this.request('platform_types', query)
+
+        return platformTypes
     }
 }
 
