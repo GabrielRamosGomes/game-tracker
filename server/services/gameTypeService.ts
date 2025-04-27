@@ -4,7 +4,7 @@ import { game_types } from '../database/schema'
 
 class GameTypeService extends BaseService {
     public async insertMany(types: NewGameType[]) {
-       return await this.insert(types, this.schema.game_types.id)
+        return await this.insert(types, this.schema.game_types.id)
     }
 }
 

@@ -91,7 +91,7 @@ class IGDB_Client {
         return gameModes
     }
 
-    public async fetchGameTypes() { 
+    public async fetchGameTypes() {
         const query = `
             fields type;
             offset 0;
