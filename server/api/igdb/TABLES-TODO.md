@@ -3,7 +3,7 @@
 ### Insert Independent Tables
 
 - [x] countries
-- [ ] company_status
+- [x] company_status
 - [ ] game_modes
 - [ ] game_types
 - [ ] genres
