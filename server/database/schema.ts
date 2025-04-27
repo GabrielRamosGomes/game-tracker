@@ -42,6 +42,7 @@ export const game_modes = pgTable('game_modes', {
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewGameMode = typeof game_modes.$inferInsert
 
 export const genres = pgTable('genres', {
     id: serial('id').primaryKey(),

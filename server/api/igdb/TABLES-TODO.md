@@ -20,7 +20,7 @@
 - [ ] games (needs game_engines, game_modes, game_types)
 
 ### Insert Link (Many-to-Many) Tables
- 
+
 - [ ] game_engines_games (needs games, game_engines)
 - [ ] game_genres (needs games, genres)
 - [ ] game_keywords (needs games, keywords)

@@ -1,5 +1,5 @@
-import type { NodePgDatabase } from "drizzle-orm/node-postgres"
-import type * as schema from "../database/schema"
+import type { NodePgDatabase } from 'drizzle-orm/node-postgres'
+import type * as schema from '../database/schema'
 
 export class BaseService {
     protected db: NodePgDatabase<typeof schema>

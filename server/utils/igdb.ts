@@ -1,4 +1,4 @@
-import type { NewCompanyStatus } from "../database/schema"
+import type { NewCompanyStatus } from '../database/schema'
 
 class IGDB_Client {
     private client_id: string
@@ -24,10 +24,13 @@ class IGDB_Client {
         return new Promise((resolve) => setTimeout(resolve, ms))
     }
 
-    private async request<T>(endpoint: string, body: string, shouldSleep: boolean = true): Promise<T> {
+    private async request<T>(
+        endpoint: string,
+        body: string,
+        shouldSleep: boolean = true
+    ): Promise<T> {
         // sleep to avoid rate limiting
-        if (shouldSleep)
-            await this.sleep()
+        if (shouldSleep) await this.sleep()
 
         const response = await fetch(`${this.base_url}/${endpoint}`, {
             method: 'POST',
@@ -71,11 +74,15 @@ class IGDB_Client {
             fields name;
             offset 0;
             sort id asc;
-        `;
+        `
 
         const shouldSleep = false
-        const companies: NewCompanyStatus[] = await this.request('company_statuses', query, shouldSleep)
-        
+        const companies: NewCompanyStatus[] = await this.request(
+            'company_statuses',
+            query,
+            shouldSleep
+        )
+
         return companies
     }
 }
