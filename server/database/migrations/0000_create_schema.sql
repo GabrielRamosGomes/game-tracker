@@ -110,7 +110,6 @@ CREATE TABLE "genres" (
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	"url" text NOT NULL,
 	CONSTRAINT "genres_name_unique" UNIQUE("name"),
 	CONSTRAINT "genres_slug_unique" UNIQUE("slug")
 );
@@ -138,35 +137,35 @@ CREATE TABLE "keywords" (
 	CONSTRAINT "keywords_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
+CREATE TABLE "platform_families" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"name" text NOT NULL,
+	"slug" text NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "platform_families_name_unique" UNIQUE("name"),
+	CONSTRAINT "platform_families_slug_unique" UNIQUE("slug")
+);
+--> statement-breakpoint
+CREATE TABLE "platform_types" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"name" text NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "platform_types_name_unique" UNIQUE("name")
+);
+--> statement-breakpoint
 CREATE TABLE "platforms" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"abbreviation" text NOT NULL,
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
 	"platform_type" integer NOT NULL,
-	"platform_family" integer NOT NULL,
+	"platform_family" integer,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "platforms_name_unique" UNIQUE("name"),
 	CONSTRAINT "platforms_slug_unique" UNIQUE("slug")
-);
---> statement-breakpoint
-CREATE TABLE "platforms_families" (
-	"id" serial PRIMARY KEY NOT NULL,
-	"name" text NOT NULL,
-	"slug" text NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "platforms_families_name_unique" UNIQUE("name"),
-	CONSTRAINT "platforms_families_slug_unique" UNIQUE("slug")
-);
---> statement-breakpoint
-CREATE TABLE "platforms_types" (
-	"id" serial PRIMARY KEY NOT NULL,
-	"name" text NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "platforms_types_name_unique" UNIQUE("name")
 );
 --> statement-breakpoint
 CREATE TABLE "player_perspectives" (
@@ -204,6 +203,6 @@ ALTER TABLE "games" ADD CONSTRAINT "games_game_mode_game_modes_id_fk" FOREIGN KE
 ALTER TABLE "games" ADD CONSTRAINT "games_game_type_game_types_id_fk" FOREIGN KEY ("game_type") REFERENCES "public"."game_types"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "involved_companies" ADD CONSTRAINT "involved_companies_company_id_companies_id_fk" FOREIGN KEY ("company_id") REFERENCES "public"."companies"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "involved_companies" ADD CONSTRAINT "involved_companies_game_id_games_id_fk" FOREIGN KEY ("game_id") REFERENCES "public"."games"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "platforms" ADD CONSTRAINT "platforms_platform_type_platforms_types_id_fk" FOREIGN KEY ("platform_type") REFERENCES "public"."platforms_types"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "platforms" ADD CONSTRAINT "platforms_platform_family_platforms_families_id_fk" FOREIGN KEY ("platform_family") REFERENCES "public"."platforms_families"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "platforms" ADD CONSTRAINT "platforms_platform_type_platform_types_id_fk" FOREIGN KEY ("platform_type") REFERENCES "public"."platform_types"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "platforms" ADD CONSTRAINT "platforms_platform_family_platform_families_id_fk" FOREIGN KEY ("platform_family") REFERENCES "public"."platform_families"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "time_to_beat" ADD CONSTRAINT "time_to_beat_game_id_games_id_fk" FOREIGN KEY ("game_id") REFERENCES "public"."games"("id") ON DELETE no action ON UPDATE no action;

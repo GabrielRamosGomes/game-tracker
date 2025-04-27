@@ -1,4 +1,13 @@
-import type { NewCompanyStatus, NewGameMode, NewGameType } from '../database/schema'
+import type {
+    NewCompanyStatus,
+    NewGameMode,
+    NewGameType,
+    NewGenre,
+    NewKeyword,
+    NewPlatformFamily,
+    NewPlatformType,
+    NewPlayerPerspective
+} from '../database/schema'
 
 class IGDB_Client {
     private client_id: string
@@ -45,30 +54,45 @@ class IGDB_Client {
         return response.json()
     }
 
-    /**
-     * Fetch all games from IGDB API, use this with caution as it will return a lot of data.
-     * Main use is to have an initial list of games to work with.
-     */
-    public async fetchAllGames(batchSize: number = 500) {
+    private async batchRequest<T>(endpoint: string, body: string, batchSize: number = 500) {
+        const allData: T[] = []
         let offset = 0
-        const allGames = []
 
         while (true) {
-            const query = `
-                fields name, game_type, genres, first_release_date, rating, storyline, url, involved_companies, game_status, expansions, dlcs, age_ratings, collections, cover, aggregated_rating, game_engines;
-                limit 500; 
-                offset ${offset};
-                `
+            const query = `${body} limit ${batchSize}; offset ${offset};`
+            const data: T[] = await this.request(endpoint, query, true)
+            allData.push(...data)
 
-            const batch: unknown[] = await this.request('games', query, true)
-            allGames.push(...batch)
-            if (batch.length < batchSize) break
+            console.log(`Fetched ${data.length} records from ${endpoint} with offset ${offset}`)
+            if (data.length < batchSize) {
+                console.log(`Fetched all records from ${endpoint}`)
+                console.log(`Total records fetched: ${allData.length}`)
+                break
+            }
             offset += batchSize
         }
+
+        return allData
+    }
+
+    /**
+     * Fetches all games from IGDB API, this might take a while since there are a lot of games
+     * @param batchSize The number of records to fetch in each request
+     */
+    public async fetchAllGames(batchSize: number = 500) {
+        const query = `
+            fields name, game_type, genres, first_release_date, rating, storyline, url, involved_companies, game_status, expansions, dlcs, age_ratings, collections, cover, aggregated_rating, game_engines;
+            limit ${batchSize};
+            offset 0;
+        `
+        const allGames: unknown[] = await this.batchRequest('games', query, batchSize)
 
         return allGames
     }
 
+    /**
+     * Fetches all game engines from IGDB API
+     */
     public async fetchCompanyStatus() {
         const query = `
             fields name;
@@ -80,6 +104,9 @@ class IGDB_Client {
         return companies
     }
 
+    /**
+     * Fetches all game modes from IGDB API
+     */
     public async fetchGameModes() {
         const query = `
             fields name,slug;
@@ -91,6 +118,9 @@ class IGDB_Client {
         return gameModes
     }
 
+    /**
+     * Fetches all game types from IGDB API
+     */
     public async fetchGameTypes() {
         const query = `
             fields type;
@@ -100,6 +130,79 @@ class IGDB_Client {
         const gameTypes: NewGameType[] = await this.request('game_types', query)
 
         return gameTypes
+    }
+
+    /**
+     * Fetchs all game engines from IGDB API
+     */
+    public async fetchGenres() {
+        const query = `
+            fields name,slug;
+            offset 0;
+            sort id asc;
+        `
+        const genres: NewGenre[] = await this.request('genres', query)
+
+        return genres
+    }
+
+    /**
+     * Fetchs all keywords from IGDB API
+     */
+    public async fetchKeywords() {
+        const query = `
+            fields name,slug;
+            offset 0;
+            sort id asc;
+        `
+        const keywords: NewKeyword[] = await this.batchRequest('keywords', query)
+
+        return keywords
+    }
+
+    /**
+     * Fetchs all platform families from IGDB API
+     */
+    public async fetchPlatformFamilies() {
+        const query = `
+            fields name,slug;
+            offset 0;
+            sort id asc;
+        `
+        const platformFamilies: NewPlatformFamily[] = await this.request('platform_families', query)
+
+        return platformFamilies
+    }
+
+    /**
+     * Fetchs all platform types from IGDB API
+     */
+    public async fetchPlatformTypes() {
+        const query = `
+            fields name;
+            offset 0;
+            sort id asc;
+        `
+        const platformTypes: NewPlatformType[] = await this.request('platform_types', query)
+
+        return platformTypes
+    }
+
+    /**
+     * Fetchs all player perspectives from IGDB API
+     */
+    public async fetchPlayerPerspectives() {
+        const query = `
+            fields name,slug;
+            offset 0;
+            sort id asc;
+        `
+        const playerPerspectives: NewPlayerPerspective[] = await this.request(
+            'player_perspectives',
+            query
+        )
+
+        return playerPerspectives
     }
 }
 

@@ -6,16 +6,16 @@
 - [x] company_status
 - [x] game_modes
 - [x] game_types
-- [ ] genres
-- [ ] keywords
-- [ ] platforms_families
-- [ ] platforms_types
-- [ ] player_perspectives
+- [x] genres
+- [x] keywords
+- [x] platform_families
+- [x] platform_types
+- [x] player_perspectives
 
 ### Insert Dependent Tables
 
 - [ ] companies (needs countries, company_status)
-- [ ] platforms (needs platforms_families, platforms_types)
+- [ ] platforms (needs platform_families, platform_types)
 - [ ] game_engines
 - [ ] games (needs game_engines, game_modes, game_types)
 
