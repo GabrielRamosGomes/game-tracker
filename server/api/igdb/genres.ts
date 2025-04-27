@@ -1,4 +1,4 @@
-import { useGenreService } from "~/server/services/genreService"
+import { useGenreService } from '~/server/services/genreService'
 
 export default defineEventHandler(async () => {
     const igbd_client = useIGBD()

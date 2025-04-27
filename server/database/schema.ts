@@ -50,7 +50,7 @@ export const genres = pgTable('genres', {
     name: text('name').notNull().unique(),
     slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
-    created_at: timestamp('created_at').defaultNow().notNull(),
+    created_at: timestamp('created_at').defaultNow().notNull()
 })
 export type NewGenre = typeof genres.$inferInsert
 
@@ -186,6 +186,7 @@ export const keywords = pgTable('keywords', {
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewKeyword = typeof keywords.$inferInsert
 
 export const game_keywords = pgTable('game_keywords', {
     id: serial('id').primaryKey(),

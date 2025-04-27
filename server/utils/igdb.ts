@@ -1,4 +1,10 @@
-import type { NewCompanyStatus, NewGameMode, NewGameType, NewGenre } from '../database/schema'
+import type {
+    NewCompanyStatus,
+    NewGameMode,
+    NewGameType,
+    NewGenre,
+    NewKeyword
+} from '../database/schema'
 
 class IGDB_Client {
     private client_id: string
@@ -43,6 +49,27 @@ class IGDB_Client {
         }
 
         return response.json()
+    }
+
+    private async batchRequest<T>(endpoint: string, body: string, batchSize: number = 500) {
+        const allData: T[] = []
+        let offset = 0
+
+        while (true) {
+            const query = `${body} limit ${batchSize}; offset ${offset};`
+            const data: T[] = await this.request(endpoint, query, true)
+            allData.push(...data)
+
+            console.log(`Fetched ${data.length} records from ${endpoint} with offset ${offset}`)
+            if (data.length < batchSize) {
+                console.log(`Fetched all records from ${endpoint}`)
+                console.log(`Total records fetched: ${allData.length}`)
+                break
+            }
+            offset += batchSize
+        }
+
+        return allData
     }
 
     /**
@@ -111,6 +138,17 @@ class IGDB_Client {
         const genres: NewGenre[] = await this.request('genres', query)
 
         return genres
+    }
+
+    public async fetchKeywords() {
+        const query = `
+            fields name,slug;
+            offset 0;
+            sort id asc;
+        `
+        const keywords: NewKeyword[] = await this.batchRequest('keywords', query)
+
+        return keywords
     }
 }
 
