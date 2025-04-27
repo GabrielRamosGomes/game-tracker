@@ -2,7 +2,7 @@ import { BaseService } from './baseService'
 import type { NewCompanyStatus } from '../database/schema'
 
 class CountryService extends BaseService {
-    public async insertCompanyStatuses(statuses: NewCompanyStatus[]) {
+    public async insertMany(statuses: NewCompanyStatus[]) {
         const result = await this.db
             .insert(this.schema.companies_status)
             .values(statuses)

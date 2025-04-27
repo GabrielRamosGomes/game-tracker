@@ -9,7 +9,7 @@ interface ISO_3166_Country {
 }
 
 class CountryService extends BaseService {
-    public async insertCountries(countries: NewCountry[]) {
+    public async insertMany(countries: NewCountry[]) {
         const result = await this.db
             .insert(this.schema.countries)
             .values(countries)
