@@ -14,12 +14,16 @@ services:
             retries: 5
         volumes:
             - ./data/postgres:/var/lib/postgresql/data
+            - ./server/database/migrations:/docker-entrypoint-initdb.d
         ports:
             - ${POSTGRES_PORT}:${POSTGRES_PORT}
 
     web-app:
         env_file:
             - .env
+        environment:
+            - IGDB_CLIENT_ID=${IGDB_CLIENT_ID}
+            - IGDB_CLIENT_ACCESS_TOKEN=${IGDB_CLIENT_ACCESS_TOKEN}
         build:
             context: ./
         depends_on:
@@ -27,9 +31,4 @@ services:
                 condition: service_healthy
         ports:
             - '3000:3000'
-        command:
-            [
-                'sh',
-                '-c',
-                'pnpm drizzle-kit push --config drizzle.config.ts && node .output/server/index.mjs'
-            ]
+        command: ['sh', '-c', 'node .output/server/index.mjs']

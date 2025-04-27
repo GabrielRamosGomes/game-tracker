@@ -25,3 +25,6 @@ logs
 
 # Postgres data
 data
+
+# Drizzle meta files
+meta
