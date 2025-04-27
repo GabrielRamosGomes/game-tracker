@@ -11,7 +11,7 @@ interface ISO_3166_Country {
 
 class CountryService extends BaseService {
     public async insertMany(countries: NewCountry[]) {
-        this.insert(countries, this.schema.countries.id)
+        return this.insert(countries, this.schema.countries.id)
     }
 
     public async fetchCountries() {
