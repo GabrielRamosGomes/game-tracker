@@ -197,7 +197,10 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const playerPerspectives: NewPlayerPerspective[] = await this.request('player_perspectives', query)
+        const playerPerspectives: NewPlayerPerspective[] = await this.request(
+            'player_perspectives',
+            query
+        )
 
         return playerPerspectives
     }

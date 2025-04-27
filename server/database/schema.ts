@@ -74,8 +74,7 @@ export const platforms = pgTable('platforms', {
     platform_type: integer('platform_type')
         .notNull()
         .references(() => platform_types.id),
-    platform_family: integer('platform_family')
-        .references(() => platform_families.id),
+    platform_family: integer('platform_family').references(() => platform_families.id),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
