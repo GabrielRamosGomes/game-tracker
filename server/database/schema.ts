@@ -13,8 +13,8 @@ export const games = pgTable('games', {
     game_type: integer('game_type')
         .notNull()
         .references(() => game_types.id),
-    name: text('name').notNull(),
-    slug: text('slug').notNull(),
+    name: text('name').notNull().unique(),
+    slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
@@ -22,31 +22,31 @@ export const games = pgTable('games', {
 export const game_engines = pgTable('game_engines', {
     id: serial('id').primaryKey(),
     logo: text('logo').notNull(),
-    name: text('name').notNull(),
-    slug: text('slug').notNull(),
+    name: text('name').notNull().unique(),
+    slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
 
 export const game_types = pgTable('game_types', {
     id: serial('id').primaryKey(),
-    type: text('type').notNull(),
+    type: text('type').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
 
 export const game_modes = pgTable('game_modes', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull(),
-    slug: text('slug').notNull(),
+    name: text('name').notNull().unique(),
+    slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
 
 export const genres = pgTable('genres', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull(),
-    slug: text('slug').notNull(),
+    name: text('name').notNull().unique(),
+    slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull(),
     url: text('url').notNull()
@@ -67,8 +67,8 @@ export const game_genres = pgTable('game_genres', {
 export const platforms = pgTable('platforms', {
     id: serial('id').primaryKey(),
     abbreviation: text('abbreviation').notNull(),
-    name: text('name').notNull(),
-    slug: text('slug').notNull(),
+    name: text('name').notNull().unique(),
+    slug: text('slug').notNull().unique(),
     platform_type: integer('platform_type')
         .notNull()
         .references(() => platforms_types.id),
@@ -81,15 +81,15 @@ export const platforms = pgTable('platforms', {
 
 export const platforms_types = pgTable('platforms_types', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull(),
+    name: text('name').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
 
 export const platforms_families = pgTable('platforms_families', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull(),
-    slug: text('slug').notNull(),
+    name: text('name').notNull().unique(),
+    slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
@@ -101,8 +101,8 @@ export const companies = pgTable('companies', {
         .references(() => countries.id),
     description: text('description').notNull(),
     logo: text('logo').notNull(),
-    name: text('name').notNull(),
-    slug: text('slug').notNull(),
+    name: text('name').notNull().unique(),
+    slug: text('slug').notNull().unique(),
     status: integer('status')
         .notNull()
         .references(() => companies_status.id),
@@ -112,7 +112,7 @@ export const companies = pgTable('companies', {
 
 export const companies_status = pgTable('company_status', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull()
+    name: text('name').notNull().unique()
 })
 
 // Code is the ISO 3166-1 code for the country
@@ -120,8 +120,8 @@ export const companies_status = pgTable('company_status', {
 // https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
 export const countries = pgTable('countries', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull(),
-    code: text('code').notNull(),
+    name: text('name').unique().notNull(),
+    code: text('code').unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
@@ -157,8 +157,8 @@ export const involved_companies = pgTable('involved_companies', {
 
 export const player_perspectives = pgTable('player_perspectives', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull(),
-    slug: text('slug').notNull(),
+    name: text('name').notNull().unique(),
+    slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
@@ -177,8 +177,8 @@ export const game_player_perspectives = pgTable('game_player_perspectives', {
 
 export const keywords = pgTable('keywords', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull(),
-    slug: text('slug').notNull(),
+    name: text('name').notNull().unique(),
+    slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })

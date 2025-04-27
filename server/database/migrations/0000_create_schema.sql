@@ -7,20 +7,25 @@ CREATE TABLE "companies" (
 	"slug" text NOT NULL,
 	"status" integer NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "companies_name_unique" UNIQUE("name"),
+	CONSTRAINT "companies_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE "company_status" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"name" text NOT NULL
+	"name" text NOT NULL,
+	CONSTRAINT "company_status_name_unique" UNIQUE("name")
 );
 --> statement-breakpoint
 CREATE TABLE "countries" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
-	"code" text NOT NULL,
+	"code" text,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "countries_name_unique" UNIQUE("name"),
+	CONSTRAINT "countries_code_unique" UNIQUE("code")
 );
 --> statement-breakpoint
 CREATE TABLE "game_engines" (
@@ -29,7 +34,9 @@ CREATE TABLE "game_engines" (
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "game_engines_name_unique" UNIQUE("name"),
+	CONSTRAINT "game_engines_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE "game_engines_games" (
@@ -61,7 +68,9 @@ CREATE TABLE "game_modes" (
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "game_modes_name_unique" UNIQUE("name"),
+	CONSTRAINT "game_modes_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE "game_player_perspectives" (
@@ -76,7 +85,8 @@ CREATE TABLE "game_types" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"type" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "game_types_type_unique" UNIQUE("type")
 );
 --> statement-breakpoint
 CREATE TABLE "games" (
@@ -89,7 +99,9 @@ CREATE TABLE "games" (
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "games_name_unique" UNIQUE("name"),
+	CONSTRAINT "games_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE "genres" (
@@ -98,7 +110,9 @@ CREATE TABLE "genres" (
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	"url" text NOT NULL
+	"url" text NOT NULL,
+	CONSTRAINT "genres_name_unique" UNIQUE("name"),
+	CONSTRAINT "genres_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE "involved_companies" (
@@ -119,7 +133,9 @@ CREATE TABLE "keywords" (
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "keywords_name_unique" UNIQUE("name"),
+	CONSTRAINT "keywords_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE "platforms" (
@@ -130,7 +146,9 @@ CREATE TABLE "platforms" (
 	"platform_type" integer NOT NULL,
 	"platform_family" integer NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "platforms_name_unique" UNIQUE("name"),
+	CONSTRAINT "platforms_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE "platforms_families" (
@@ -138,14 +156,17 @@ CREATE TABLE "platforms_families" (
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "platforms_families_name_unique" UNIQUE("name"),
+	CONSTRAINT "platforms_families_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE "platforms_types" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "platforms_types_name_unique" UNIQUE("name")
 );
 --> statement-breakpoint
 CREATE TABLE "player_perspectives" (
@@ -153,7 +174,9 @@ CREATE TABLE "player_perspectives" (
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "player_perspectives_name_unique" UNIQUE("name"),
+	CONSTRAINT "player_perspectives_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE "time_to_beat" (

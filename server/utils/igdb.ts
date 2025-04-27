@@ -18,6 +18,9 @@ class IGDB_Client {
     }
 
     private async request<T>(endpoint: string, body: string): Promise<T> {
+        // sleep to avoid rate limiting
+        await this.sleep()
+
         const response = await $fetch(`${this.base_url}/${endpoint}`, {
             method: 'POST',
             headers: this.headers,
@@ -55,7 +58,10 @@ class IGDB_Client {
         return allGames
     }
 
-    public async fetchTimeToBeat() {}
+    // sleep function to avoid rate limiting (4 requests per second)
+    private sleep(ms: number = 250) {
+        return new Promise((resolve) => setTimeout(resolve, ms))
+    }
 }
 
 const igbd_client = new IGDB_Client(
