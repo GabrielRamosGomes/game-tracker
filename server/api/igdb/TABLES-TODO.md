@@ -10,7 +10,7 @@
 - [x] keywords
 - [x] platform_families
 - [x] platform_types
-- [ ] player_perspectives
+- [x] player_perspectives
 
 ### Insert Dependent Tables
 
