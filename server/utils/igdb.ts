@@ -1,4 +1,4 @@
-import type { NewCompanyStatus, NewGameMode, NewGameType } from '../database/schema'
+import type { NewCompanyStatus, NewGameMode, NewGameType, NewGenre } from '../database/schema'
 
 class IGDB_Client {
     private client_id: string
@@ -100,6 +100,17 @@ class IGDB_Client {
         const gameTypes: NewGameType[] = await this.request('game_types', query)
 
         return gameTypes
+    }
+
+    public async fetchGenres() {
+        const query = `
+            fields name,slug;
+            offset 0;
+            sort id asc;
+        `
+        const genres: NewGenre[] = await this.request('genres', query)
+
+        return genres
     }
 }
 

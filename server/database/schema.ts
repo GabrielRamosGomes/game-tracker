@@ -51,8 +51,8 @@ export const genres = pgTable('genres', {
     slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull(),
-    url: text('url').notNull()
 })
+export type NewGenre = typeof genres.$inferInsert
 
 export const game_genres = pgTable('game_genres', {
     id: serial('id').primaryKey(),

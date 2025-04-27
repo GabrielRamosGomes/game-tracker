@@ -6,7 +6,7 @@
 - [x] company_status
 - [x] game_modes
 - [x] game_types
-- [ ] genres
+- [x] genres
 - [ ] keywords
 - [ ] platforms_families
 - [ ] platforms_types
