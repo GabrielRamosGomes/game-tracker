@@ -40,7 +40,7 @@ export abstract class BaseService<TTable extends PgTable> {
         return result[0]
     }
 
-    public async updatedById(id: string | number, data: TTable['$inferInsert']) {
+    public async updateById(id: string | number, data: TTable['$inferInsert']) {
         const row = await this.db
             .update(this.table)
             .set(data)
