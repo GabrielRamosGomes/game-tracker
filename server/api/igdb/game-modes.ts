@@ -1,9 +1,7 @@
-import { useGameModeService } from '~/server/services/gameModeService'
+import { gameModeService } from '~/server/services/gameModeService'
 
 export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
-    const gameModeService = useGameModeService()
-
     const gameModes = await igbd_client.fetchGameModes()
 
     if (!gameModes.length) {

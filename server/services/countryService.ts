@@ -9,7 +9,7 @@ interface ISO_3166_Country {
     ccn3: string
 }
 
-class CountryService extends BaseService {
+class CountryService extends BaseService<typeof countries> {
     public async insertMany(countryList: NewCountry[]) {
         return this.insert(countryList, countries.id)
     }
@@ -33,8 +33,4 @@ class CountryService extends BaseService {
     }
 }
 
-const countryService = new CountryService(countries)
-
-export function useCountryService() {
-    return countryService
-}
+export const countryService = new CountryService(countries)

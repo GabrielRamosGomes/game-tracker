@@ -2,14 +2,10 @@ import { BaseService } from './baseService'
 import type { NewGenre } from '../database/schema'
 import { genres } from '../database/schema'
 
-class GenreService extends BaseService {
+class GenreService extends BaseService<typeof genres> {
     public async insertMany(types: NewGenre[]) {
         return await this.insert(types, genres.id)
     }
 }
 
-const genreService = new GenreService(genres)
-
-export function useGenreService() {
-    return genreService
-}
+export const genreService = new GenreService(genres)

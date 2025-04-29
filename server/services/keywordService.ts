@@ -2,14 +2,10 @@ import { BaseService } from './baseService'
 import type { NewKeyword } from '../database/schema'
 import { keywords } from '../database/schema'
 
-class KeywordService extends BaseService {
+class KeywordService extends BaseService<typeof keywords> {
     public async insertMany(types: NewKeyword[]) {
         return await this.insert(types, keywords.id)
     }
 }
 
-const keywordService = new KeywordService(keywords)
-
-export function useKeywordService() {
-    return keywordService
-}
+export const keywordService = new KeywordService(keywords)

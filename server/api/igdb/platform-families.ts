@@ -1,8 +1,7 @@
-import { usePlatformFamilyService } from '~/server/services/platformFamilyService'
+import { platformFamilyService } from '~/server/services/platformFamilyService'
 
 export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
-    const platformFamilyService = usePlatformFamilyService()
 
     const families = await igbd_client.fetchPlatformFamilies()
 

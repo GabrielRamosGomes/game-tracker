@@ -1,9 +1,7 @@
-import { useKeywordService } from '~/server/services/keywordService'
+import { keywordService } from '~/server/services/keywordService'
 
 export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
-    const keywordService = useKeywordService()
-
     const keywords = await igbd_client.fetchKeywords()
 
     if (!keywords.length) {

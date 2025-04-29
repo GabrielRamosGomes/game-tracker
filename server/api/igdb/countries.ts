@@ -1,7 +1,6 @@
-import { useCountryService } from '~/server/services/countryService'
+import { countryService } from '~/server/services/countryService'
 
 export default defineEventHandler(async () => {
-    const countryService = useCountryService()
     const countries = await countryService.fetchCountries()
 
     if (!countries.length) {

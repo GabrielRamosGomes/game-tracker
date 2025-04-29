@@ -1,9 +1,7 @@
-import { useGameTypeService } from '~/server/services/gameTypeService'
+import { gameTypeService } from '~/server/services/gameTypeService'
 
 export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
-    const gameTypeService = useGameTypeService()
-
     const gameTypes = await igbd_client.fetchGameTypes()
 
     if (!gameTypes.length) {

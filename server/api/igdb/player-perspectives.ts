@@ -1,9 +1,7 @@
-import { usePlayerPerspectiveService } from '~/server/services/playerPerspectiveService'
+import { playerPerspectiveService } from '~/server/services/playerPerspectiveService'
 
 export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
-    const playerPerspectiveService = usePlayerPerspectiveService()
-
     const perspectives = await igbd_client.fetchPlayerPerspectives()
 
     if (!perspectives.length) {

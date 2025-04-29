@@ -1,9 +1,7 @@
-import { useCompanyStatusService } from '~/server/services/companyStatusService'
+import { companyStatus } from '~/server/services/companyStatusService'
 
 export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
-    const companyStatusService = useCompanyStatusService()
-
     const companyStatuses = await igbd_client.fetchCompanyStatus()
 
     if (!companyStatuses.length) {
@@ -13,7 +11,7 @@ export default defineEventHandler(async () => {
         })
     }
 
-    const insertedRecords = await companyStatusService.insertMany(companyStatuses)
+    const insertedRecords = await companyStatus.insertMany(companyStatuses)
 
     return {
         message: `Inserted ${insertedRecords} company statuses into the database`

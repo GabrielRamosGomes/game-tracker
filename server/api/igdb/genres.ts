@@ -1,9 +1,7 @@
-import { useGenreService } from '~/server/services/genreService'
+import { genreService } from '~/server/services/genreService'
 
 export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
-    const genreService = useGenreService()
-
     const genres = await igbd_client.fetchGenres()
 
     if (!genres.length) {

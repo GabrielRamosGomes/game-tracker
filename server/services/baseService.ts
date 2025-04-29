@@ -1,23 +1,27 @@
 import type { NodePgDatabase } from 'drizzle-orm/node-postgres'
 import type * as schema from '../database/schema'
-import type { Table } from 'drizzle-orm'
-import type { PgColumn } from 'drizzle-orm/pg-core'
+import type { PgColumn, PgTable } from 'drizzle-orm/pg-core'
 
-export abstract class BaseService {
+export abstract class BaseService<TTable extends PgTable> {
     protected db: NodePgDatabase<typeof schema>
-    protected table: Table
+    protected table: TTable
 
-    constructor(table: Table) {
+    constructor(table: TTable) {
         const { db } = useDrizzle()
 
         this.db = db
         this.table = table
     }
 
-    protected async insert<T>(data: T[], returningField: PgColumn) {
+    protected async insert(
+        data: TTable['$inferInsert'] | TTable['$inferInsert'][],
+        returningField: PgColumn
+    ) {
+        const values = Array.isArray(data) ? data : [data]
+
         const result = await this.db
             .insert(this.table)
-            .values(data)
+            .values(values)
             .onConflictDoNothing()
             .returning({ id: returningField })
 
