@@ -9,5 +9,5 @@ const pool = new pg.Pool({
 const db = drizzle(pool, { schema })
 
 export function useDrizzle() {
-    return { db, schema }
+    return { db }
 }

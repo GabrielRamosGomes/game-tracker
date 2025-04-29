@@ -1,9 +1,7 @@
-import { useGameModeService } from '~/server/services/gameModeService'
+import { gameModeService } from '~/server/services/gameModeService'
 
 export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
-    const gameModeService = useGameModeService()
-
     const gameModes = await igbd_client.fetchGameModes()
 
     if (!gameModes.length) {
@@ -13,7 +11,7 @@ export default defineEventHandler(async () => {
         })
     }
 
-    const insertedRecords = await gameModeService.insertMany(gameModes)
+    const insertedRecords = await gameModeService.insert(gameModes)
 
     return {
         message: `Inserted ${insertedRecords} game modes into the database`

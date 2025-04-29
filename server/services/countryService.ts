@@ -9,11 +9,7 @@ interface ISO_3166_Country {
     ccn3: string
 }
 
-class CountryService extends BaseService {
-    public async insertMany(countries: NewCountry[]) {
-        return this.insert(countries, this.schema.countries.id)
-    }
-
+class CountryService extends BaseService<typeof countries> {
     public async fetchCountries() {
         const response = await fetch('https://restcountries.com/v3.1/all')
         const countryList: Array<ISO_3166_Country> = await response.json()
@@ -33,8 +29,4 @@ class CountryService extends BaseService {
     }
 }
 
-const countryService = new CountryService(countries)
-
-export function useCountryService() {
-    return countryService
-}
+export const countryService = new CountryService(countries, countries.id)

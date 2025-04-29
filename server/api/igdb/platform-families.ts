@@ -1,8 +1,7 @@
-import { usePlatformFamilyService } from '~/server/services/platformFamilyService'
+import { platformFamilyService } from '~/server/services/platformFamilyService'
 
 export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
-    const platformFamilyService = usePlatformFamilyService()
 
     const families = await igbd_client.fetchPlatformFamilies()
 
@@ -13,7 +12,7 @@ export default defineEventHandler(async () => {
         })
     }
 
-    const insertedRecords = await platformFamilyService.insertMany(families)
+    const insertedRecords = await platformFamilyService.insert(families)
 
     return {
         message: `Inserted ${insertedRecords} platform families into the database`

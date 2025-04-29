@@ -1,9 +1,7 @@
-import { usePlatformTypeService } from '~/server/services/platformTypeService'
+import { platformTypeService } from '~/server/services/platformTypeService'
 
 export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
-    const platformTypeService = usePlatformTypeService()
-
     const types = await igbd_client.fetchPlatformTypes()
 
     if (!types.length) {
@@ -13,7 +11,7 @@ export default defineEventHandler(async () => {
         })
     }
 
-    const insertedRecords = await platformTypeService.insertMany(types)
+    const insertedRecords = await platformTypeService.insert(types)
 
     return {
         message: `Inserted ${insertedRecords} platform types into the database`

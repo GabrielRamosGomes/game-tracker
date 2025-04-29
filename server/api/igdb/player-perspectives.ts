@@ -1,9 +1,7 @@
-import { usePlayerPerspectiveService } from '~/server/services/playerPerspectiveService'
+import { playerPerspectiveService } from '~/server/services/playerPerspectiveService'
 
 export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
-    const playerPerspectiveService = usePlayerPerspectiveService()
-
     const perspectives = await igbd_client.fetchPlayerPerspectives()
 
     if (!perspectives.length) {
@@ -13,7 +11,7 @@ export default defineEventHandler(async () => {
         })
     }
 
-    const insertedRecords = await playerPerspectiveService.insertMany(perspectives)
+    const insertedRecords = await playerPerspectiveService.insert(perspectives)
 
     return {
         message: `Inserted ${insertedRecords} player perspectives into the database`

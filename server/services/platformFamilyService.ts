@@ -1,15 +1,9 @@
 import { BaseService } from './baseService'
-import type { NewPlatformFamily } from '../database/schema'
 import { platform_families } from '../database/schema'
 
-class PlatformFamilyService extends BaseService {
-    public async insertMany(types: NewPlatformFamily[]) {
-        return await this.insert(types, this.schema.platform_families.id)
-    }
-}
+class PlatformFamilyService extends BaseService<typeof platform_families> {}
 
-const platformFamilyService = new PlatformFamilyService(platform_families)
-
-export function usePlatformFamilyService() {
-    return platformFamilyService
-}
+export const platformFamilyService = new PlatformFamilyService(
+    platform_families,
+    platform_families.id
+)

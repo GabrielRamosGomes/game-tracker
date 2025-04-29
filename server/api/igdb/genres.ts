@@ -1,9 +1,7 @@
-import { useGenreService } from '~/server/services/genreService'
+import { genreService } from '~/server/services/genreService'
 
 export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
-    const genreService = useGenreService()
-
     const genres = await igbd_client.fetchGenres()
 
     if (!genres.length) {
@@ -13,7 +11,7 @@ export default defineEventHandler(async () => {
         })
     }
 
-    const insertedRecords = await genreService.insertMany(genres)
+    const insertedRecords = await genreService.insert(genres)
 
     return {
         message: `Inserted ${insertedRecords} game genres into the database`

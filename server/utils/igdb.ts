@@ -33,6 +33,13 @@ class IGDB_Client {
         return new Promise((resolve) => setTimeout(resolve, ms))
     }
 
+    /**
+     * Makes a request to the IGDB API
+     * @param endpoint The endpoint to request
+     * @param body The body of the request
+     * @param shouldSleep Whether to sleep before making the request (to avoid rate limiting)
+     * @returns The response from the IGDB API
+     */
     private async request<T>(
         endpoint: string,
         body: string,

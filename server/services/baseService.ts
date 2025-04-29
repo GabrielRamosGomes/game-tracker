@@ -1,36 +1,58 @@
 import type { NodePgDatabase } from 'drizzle-orm/node-postgres'
 import type * as schema from '../database/schema'
-import type { Table } from 'drizzle-orm'
-import type { PgColumn } from 'drizzle-orm/pg-core'
+import type { PgColumn, PgTable } from 'drizzle-orm/pg-core'
+import { eq } from 'drizzle-orm'
 
-export abstract class BaseService {
+export abstract class BaseService<TTable extends PgTable> {
     protected db: NodePgDatabase<typeof schema>
-    protected schema: typeof schema
-    protected table: Table
+    protected table: PgTable
+    private idColumn: PgColumn
 
-    constructor(table: Table) {
-        const { db, schema } = useDrizzle()
+    constructor(table: TTable, idColumn: PgColumn) {
+        const { db } = useDrizzle()
 
         this.db = db
-        this.schema = schema
         this.table = table
+        this.idColumn = idColumn
     }
 
-    protected async insert<T>(data: T[], returningField: PgColumn) {
+    public async insert(data: TTable['$inferInsert'] | TTable['$inferInsert'][]) {
+        const values = Array.isArray(data) ? data : [data]
+
         const result = await this.db
             .insert(this.table)
-            .values(data)
+            .values(values)
             .onConflictDoNothing()
-            .returning({ id: returningField })
+            .returning({ id: this.idColumn })
 
         return result.length
     }
 
-    protected async delete() {
-        // TODO: implement delete
+    public async findAll(): Promise<TTable['$inferSelect'][]> {
+        const result = await this.db.select().from(this.table)
+
+        return result
     }
 
-    protected async update() {
-        // TODO: implement update
+    public async findById(id: string | number) {
+        const result = await this.db.select().from(this.table).where(eq(this.idColumn, id)).limit(1)
+
+        return result[0]
+    }
+
+    public async updatedById(id: string | number, data: TTable['$inferInsert']) {
+        const row = await this.db
+            .update(this.table)
+            .set(data)
+            .where(eq(this.idColumn, id))
+            .returning()
+
+        return row[0] ?? null
+    }
+
+    public async deleteById(id: string | number) {
+        const { rowCount } = await this.db.delete(this.table).where(eq(this.idColumn, id)).execute()
+
+        return rowCount
     }
 }
