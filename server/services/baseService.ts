@@ -16,9 +16,7 @@ export abstract class BaseService<TTable extends PgTable> {
         this.idColumn = idColumn
     }
 
-    public async insert(
-        data: TTable['$inferInsert'] | TTable['$inferInsert'][],
-    ) {
+    public async insert(data: TTable['$inferInsert'] | TTable['$inferInsert'][]) {
         const values = Array.isArray(data) ? data : [data]
 
         const result = await this.db
@@ -36,34 +34,24 @@ export abstract class BaseService<TTable extends PgTable> {
         return result
     }
 
-    public async findById(id: string | number)
-    {
-        const result = await this.db
-            .select()
-            .from(this.table)
-            .where(eq(this.idColumn, id))
-            .limit(1)
+    public async findById(id: string | number) {
+        const result = await this.db.select().from(this.table).where(eq(this.idColumn, id)).limit(1)
 
         return result[0]
     }
 
-    public async updatedById(id: string | number, data: TTable['$inferInsert'])
-    {
+    public async updatedById(id: string | number, data: TTable['$inferInsert']) {
         const row = await this.db
             .update(this.table)
             .set(data)
             .where(eq(this.idColumn, id))
             .returning()
-        
+
         return row[0] ?? null
     }
 
-    public async deleteById(id: string | number)
-    {
-        const { rowCount,  } = await this.db
-            .delete(this.table)
-            .where(eq(this.idColumn, id))
-            .execute()
+    public async deleteById(id: string | number) {
+        const { rowCount } = await this.db.delete(this.table).where(eq(this.idColumn, id)).execute()
 
         return rowCount
     }
