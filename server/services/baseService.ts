@@ -37,7 +37,7 @@ export abstract class BaseService<TTable extends PgTable> {
     public async findById(id: string | number): Promise<TTable['$inferSelect'] | null> {
         const result = await this.db.select().from(this.table).where(eq(this.idColumn, id)).limit(1)
 
-        return result[0]
+        return result[0] ?? null
     }
 
     public async updateById(
