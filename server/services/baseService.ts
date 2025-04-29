@@ -4,7 +4,7 @@ import type { PgColumn, PgTable } from 'drizzle-orm/pg-core'
 
 export abstract class BaseService<TTable extends PgTable> {
     protected db: NodePgDatabase<typeof schema>
-    protected table: TTable
+    protected table: PgTable
 
     constructor(table: TTable) {
         const { db } = useDrizzle()
@@ -26,6 +26,12 @@ export abstract class BaseService<TTable extends PgTable> {
             .returning({ id: returningField })
 
         return result.length
+    }
+
+    protected async findAll(): Promise<TTable['$inferSelect'][]> {
+        const result = await this.db.select().from(this.table)
+
+        return result
     }
 
     protected async delete() {
