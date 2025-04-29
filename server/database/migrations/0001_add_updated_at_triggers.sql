@@ -14,6 +14,11 @@ BEFORE UPDATE ON companies
 FOR EACH ROW
 EXECUTE FUNCTION set_updated_at();
 
+CREATE TRIGGER set_updated_at_company_status
+BEFORE UPDATE ON company_status
+FOR EACH ROW
+EXECUTE FUNCTION set_updated_at();
+
 CREATE TRIGGER set_updated_at_countries
 BEFORE UPDATE ON countries
 FOR EACH ROW

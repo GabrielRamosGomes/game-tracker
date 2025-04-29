@@ -15,6 +15,8 @@ CREATE TABLE "companies" (
 CREATE TABLE "company_status" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "company_status_name_unique" UNIQUE("name")
 );
 --> statement-breakpoint
