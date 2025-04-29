@@ -8,4 +8,4 @@ class GameTypeService extends BaseService<typeof game_types> {
     }
 }
 
-export const gameTypeService = new GameTypeService(game_types)
+export const gameTypeService = new GameTypeService(game_types, game_types.id)

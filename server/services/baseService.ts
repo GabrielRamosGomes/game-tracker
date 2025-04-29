@@ -1,16 +1,19 @@
 import type { NodePgDatabase } from 'drizzle-orm/node-postgres'
 import type * as schema from '../database/schema'
 import type { PgColumn, PgTable } from 'drizzle-orm/pg-core'
+import { eq } from 'drizzle-orm'
 
 export abstract class BaseService<TTable extends PgTable> {
     protected db: NodePgDatabase<typeof schema>
     protected table: PgTable
+    private idColumn: PgColumn
 
-    constructor(table: TTable) {
+    constructor(table: TTable, idColumn: PgColumn) {
         const { db } = useDrizzle()
 
         this.db = db
         this.table = table
+        this.idColumn = idColumn
     }
 
     protected async insert(
@@ -34,11 +37,35 @@ export abstract class BaseService<TTable extends PgTable> {
         return result
     }
 
-    protected async delete() {
-        // TODO: implement delete
+    protected async findById(id: string | number)
+    {
+        const result = await this.db
+            .select()
+            .from(this.table)
+            .where(eq(this.idColumn, id))
+            .limit(1)
+
+        return result[0]
     }
 
-    protected async update() {
-        // TODO: implement update
+    protected async updatedById(id: string | number, data: TTable['$inferInsert'])
+    {
+        const row = await this.db
+            .update(this.table)
+            .set(data)
+            .where(eq(this.idColumn, id))
+            .returning()
+        
+        return row[0] ?? null
+    }
+
+    protected async deleteById(id: string | number)
+    {
+        const { rowCount,  } = await this.db
+            .delete(this.table)
+            .where(eq(this.idColumn, id))
+            .execute()
+
+        return rowCount
     }
 }

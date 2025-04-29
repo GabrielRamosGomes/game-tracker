@@ -8,4 +8,4 @@ class GenreService extends BaseService<typeof genres> {
     }
 }
 
-export const genreService = new GenreService(genres)
+export const genreService = new GenreService(genres, genres.id)

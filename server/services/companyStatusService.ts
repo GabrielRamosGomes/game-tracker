@@ -12,4 +12,4 @@ class CompanyStatusService extends BaseService<typeof companies_status> {
     }
 }
 
-export const companyStatus = new CompanyStatusService(companies_status)
+export const companyStatus = new CompanyStatusService(companies_status, companies_status.id)

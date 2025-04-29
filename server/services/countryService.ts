@@ -33,4 +33,4 @@ class CountryService extends BaseService<typeof countries> {
     }
 }
 
-export const countryService = new CountryService(countries)
+export const countryService = new CountryService(countries, countries.id)
