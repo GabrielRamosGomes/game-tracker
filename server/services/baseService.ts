@@ -34,13 +34,16 @@ export abstract class BaseService<TTable extends PgTable> {
         return result
     }
 
-    public async findById(id: string | number) {
+    public async findById(id: string | number): Promise<TTable['$inferSelect'] | null> {
         const result = await this.db.select().from(this.table).where(eq(this.idColumn, id)).limit(1)
 
-        return result[0]
+        return result[0] ?? null
     }
 
-    public async updatedById(id: string | number, data: TTable['$inferInsert']) {
+    public async updateById(
+        id: string | number,
+        data: TTable['$inferInsert']
+    ): Promise<TTable['$inferSelect'] | null> {
         const row = await this.db
             .update(this.table)
             .set(data)

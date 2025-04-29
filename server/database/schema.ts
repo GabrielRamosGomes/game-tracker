@@ -114,7 +114,9 @@ export const companies = pgTable('companies', {
 
 export const companies_status = pgTable('company_status', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull().unique()
+    name: text('name').notNull().unique(),
+    updated_at: timestamp('updated_at').defaultNow().notNull(),
+    created_at: timestamp('created_at').defaultNow().notNull()
 })
 export type NewCompanyStatus = typeof companies_status.$inferInsert
 
