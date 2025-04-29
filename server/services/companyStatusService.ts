@@ -4,7 +4,7 @@ import { companies_status } from '../database/schema'
 
 class CompanyStatusService extends BaseService {
     public async insertMany(statuses: NewCompanyStatus[]) {
-        return await this.insert(statuses, this.schema.companies_status.id)
+        return await this.insert(statuses, companies_status.id)
     }
 }
 

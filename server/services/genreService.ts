@@ -4,7 +4,7 @@ import { genres } from '../database/schema'
 
 class GenreService extends BaseService {
     public async insertMany(types: NewGenre[]) {
-        return await this.insert(types, this.schema.genres.id)
+        return await this.insert(types, genres.id)
     }
 }
 

@@ -4,7 +4,7 @@ import { keywords } from '../database/schema'
 
 class KeywordService extends BaseService {
     public async insertMany(types: NewKeyword[]) {
-        return await this.insert(types, this.schema.keywords.id)
+        return await this.insert(types, keywords.id)
     }
 }
 

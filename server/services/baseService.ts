@@ -5,14 +5,12 @@ import type { PgColumn } from 'drizzle-orm/pg-core'
 
 export abstract class BaseService {
     protected db: NodePgDatabase<typeof schema>
-    protected schema: typeof schema
     protected table: Table
 
     constructor(table: Table) {
-        const { db, schema } = useDrizzle()
+        const { db } = useDrizzle()
 
         this.db = db
-        this.schema = schema
         this.table = table
     }
 

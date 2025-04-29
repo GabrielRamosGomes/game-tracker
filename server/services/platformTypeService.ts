@@ -4,7 +4,7 @@ import { platform_types } from '../database/schema'
 
 class PlatformTypeService extends BaseService {
     public async insertMany(types: NewPlatformType[]) {
-        return await this.insert(types, this.schema.platform_types.id)
+        return await this.insert(types, platform_types.id)
     }
 }
 
