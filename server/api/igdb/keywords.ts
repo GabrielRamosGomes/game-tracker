@@ -11,7 +11,7 @@ export default defineEventHandler(async () => {
         })
     }
 
-    const insertedRecords = await keywordService.insertMany(keywords)
+    const insertedRecords = await keywordService.insert(keywords)
 
     return {
         message: `Inserted ${insertedRecords} keywords into the database`

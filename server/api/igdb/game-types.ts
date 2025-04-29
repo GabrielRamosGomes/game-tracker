@@ -11,7 +11,7 @@ export default defineEventHandler(async () => {
         })
     }
 
-    const insertedRecords = await gameTypeService.insertMany(gameTypes)
+    const insertedRecords = await gameTypeService.insert(gameTypes)
 
     return {
         message: `Inserted ${insertedRecords} game types into the database`

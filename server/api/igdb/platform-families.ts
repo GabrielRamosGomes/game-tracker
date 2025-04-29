@@ -12,7 +12,7 @@ export default defineEventHandler(async () => {
         })
     }
 
-    const insertedRecords = await platformFamilyService.insertMany(families)
+    const insertedRecords = await platformFamilyService.insert(families)
 
     return {
         message: `Inserted ${insertedRecords} platform families into the database`

@@ -10,10 +10,6 @@ interface ISO_3166_Country {
 }
 
 class CountryService extends BaseService<typeof countries> {
-    public async insertMany(countryList: NewCountry[]) {
-        return this.insert(countryList, countries.id)
-    }
-
     public async fetchCountries() {
         const response = await fetch('https://restcountries.com/v3.1/all')
         const countryList: Array<ISO_3166_Country> = await response.json()

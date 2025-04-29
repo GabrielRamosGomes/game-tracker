@@ -10,7 +10,7 @@ export default defineEventHandler(async () => {
         })
     }
 
-    const insertedRecords = await countryService.insertMany(countries)
+    const insertedRecords = await countryService.insert(countries)
 
     return {
         message: `Inserted ${insertedRecords} countries into the database`

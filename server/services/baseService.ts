@@ -16,9 +16,8 @@ export abstract class BaseService<TTable extends PgTable> {
         this.idColumn = idColumn
     }
 
-    protected async insert(
+    public async insert(
         data: TTable['$inferInsert'] | TTable['$inferInsert'][],
-        returningField: PgColumn
     ) {
         const values = Array.isArray(data) ? data : [data]
 
@@ -26,18 +25,18 @@ export abstract class BaseService<TTable extends PgTable> {
             .insert(this.table)
             .values(values)
             .onConflictDoNothing()
-            .returning({ id: returningField })
+            .returning({ id: this.idColumn })
 
         return result.length
     }
 
-    protected async findAll(): Promise<TTable['$inferSelect'][]> {
+    public async findAll(): Promise<TTable['$inferSelect'][]> {
         const result = await this.db.select().from(this.table)
 
         return result
     }
 
-    protected async findById(id: string | number)
+    public async findById(id: string | number)
     {
         const result = await this.db
             .select()
@@ -48,7 +47,7 @@ export abstract class BaseService<TTable extends PgTable> {
         return result[0]
     }
 
-    protected async updatedById(id: string | number, data: TTable['$inferInsert'])
+    public async updatedById(id: string | number, data: TTable['$inferInsert'])
     {
         const row = await this.db
             .update(this.table)
@@ -59,7 +58,7 @@ export abstract class BaseService<TTable extends PgTable> {
         return row[0] ?? null
     }
 
-    protected async deleteById(id: string | number)
+    public async deleteById(id: string | number)
     {
         const { rowCount,  } = await this.db
             .delete(this.table)

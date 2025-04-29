@@ -11,7 +11,7 @@ export default defineEventHandler(async () => {
         })
     }
 
-    const insertedRecords = await playerPerspectiveService.insertMany(perspectives)
+    const insertedRecords = await playerPerspectiveService.insert(perspectives)
 
     return {
         message: `Inserted ${insertedRecords} player perspectives into the database`
