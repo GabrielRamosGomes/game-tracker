@@ -65,16 +65,15 @@ export const game_genres = pgTable('game_genres', {
 
 export const platforms = pgTable('platforms', {
     id: serial('id').primaryKey(),
-    abbreviation: text('abbreviation').notNull(),
+    abbreviation: text('abbreviation'),
     name: text('name').notNull().unique(),
     slug: text('slug').notNull().unique(),
-    platform_type: integer('platform_type')
-        .notNull()
-        .references(() => platform_types.id),
+    platform_type: integer('platform_type').references(() => platform_types.id),
     platform_family: integer('platform_family').references(() => platform_families.id),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewPlatform = typeof platforms.$inferInsert
 
 export const platform_types = pgTable('platform_types', {
     id: serial('id').primaryKey(),

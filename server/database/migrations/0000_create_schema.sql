@@ -157,10 +157,10 @@ CREATE TABLE "platform_types" (
 --> statement-breakpoint
 CREATE TABLE "platforms" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"abbreviation" text NOT NULL,
+	"abbreviation" text,
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
-	"platform_type" integer NOT NULL,
+	"platform_type" integer,
 	"platform_family" integer,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,

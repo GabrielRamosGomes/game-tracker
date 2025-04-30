@@ -5,6 +5,7 @@ import type {
     NewGameType,
     NewGenre,
     NewKeyword,
+    NewPlatform,
     NewPlatformFamily,
     NewPlatformType,
     NewPlayerPerspective
@@ -237,6 +238,20 @@ class IGDB_Client {
         const gameEngines: NewGameEngine[] = await this.batchRequest('game_engines', query)
 
         return gameEngines
+    }
+
+    /**
+     * Fetchs all platforms from IGDB API
+     */
+    public async fetchPlatforms() {
+        const query = `
+            fields abbreviation,platform_type,name,platform_family,platform_type,slug;
+            offset 0;
+            sort id asc;
+        `
+        const platforms: NewPlatform[] = await this.batchRequest('platforms', query)
+
+        return platforms
     }
 }
 
