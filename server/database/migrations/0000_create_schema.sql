@@ -32,7 +32,6 @@ CREATE TABLE "countries" (
 --> statement-breakpoint
 CREATE TABLE "game_engines" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"logo" text NOT NULL,
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
@@ -95,7 +94,6 @@ CREATE TABLE "games" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"aggregated_rating" numeric NOT NULL,
 	"rating" numeric NOT NULL,
-	"game_engine" integer NOT NULL,
 	"game_mode" integer NOT NULL,
 	"game_type" integer NOT NULL,
 	"name" text NOT NULL,
@@ -200,7 +198,6 @@ ALTER TABLE "game_keywords" ADD CONSTRAINT "game_keywords_game_id_games_id_fk" F
 ALTER TABLE "game_keywords" ADD CONSTRAINT "game_keywords_keyword_id_keywords_id_fk" FOREIGN KEY ("keyword_id") REFERENCES "public"."keywords"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "game_player_perspectives" ADD CONSTRAINT "game_player_perspectives_game_id_games_id_fk" FOREIGN KEY ("game_id") REFERENCES "public"."games"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "game_player_perspectives" ADD CONSTRAINT "game_player_perspectives_player_perspective_id_player_perspectives_id_fk" FOREIGN KEY ("player_perspective_id") REFERENCES "public"."player_perspectives"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "games" ADD CONSTRAINT "games_game_engine_game_engines_id_fk" FOREIGN KEY ("game_engine") REFERENCES "public"."game_engines"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "games" ADD CONSTRAINT "games_game_mode_game_modes_id_fk" FOREIGN KEY ("game_mode") REFERENCES "public"."game_modes"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "games" ADD CONSTRAINT "games_game_type_game_types_id_fk" FOREIGN KEY ("game_type") REFERENCES "public"."game_types"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "involved_companies" ADD CONSTRAINT "involved_companies_company_id_companies_id_fk" FOREIGN KEY ("company_id") REFERENCES "public"."companies"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
