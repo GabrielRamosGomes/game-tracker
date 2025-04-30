@@ -15,7 +15,7 @@
 ### Insert Dependent Tables
 
 - [ ] companies (needs countries, company_status)
-- [ ] platforms (needs platform_families, platform_types)
+- [x] platforms (needs platform_families, platform_types)
 - [x] game_engines
 - [ ] games (needs game_engines, game_modes, game_types)
 
