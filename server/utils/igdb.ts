@@ -1,5 +1,6 @@
 import type {
     NewCompanyStatus,
+    NewGameEngine,
     NewGameMode,
     NewGameType,
     NewGenre,
@@ -27,6 +28,18 @@ class IGDB_Client {
             'Content-Type': 'application/json'
         }
     }
+
+    // Games that contain the wrong engine id should be updated to the right engine id before inserting into the database
+    // private duplicatedEngines: [
+    //     { wrongId: 419, name: 'Buildbox', slug: 'buildbox--1', rightId: 419 },
+    //     { wrongId: 520, name: 'LÖVE', slug: 'love--1', rightId: 400 },
+    //     { wrongId: 1106, name: 'Ego Engine', slug: 'ego-engine--1', rightId: 99 },
+    //     { wrongId: 1450, name: 'Titanium', slug: 'titanium--1', rightId: 355 },
+    //     { wrongId: 1492, name: 'CXD9615GB Emotion Engine', slug: 'cxd9615gb-emotion-engine--1', rightId: 1491 },
+    //     { wrongId: 1503, name: 'Box2D', slug: 'box2d--1', rightId: 343 },
+    //     { wrongId: 1534, name: 'M.U.G.E.N', slug: 'mugen--1', rightId: 1053 },
+    //     { wrongId: 1761, name: 'luxe engine', slug: 'luxe-engine--1', rightId: 1678 },
+    // ]
 
     // sleep function to avoid rate limiting (4 requests per second)
     private sleep(ms: number = 250) {
@@ -210,6 +223,20 @@ class IGDB_Client {
         )
 
         return playerPerspectives
+    }
+
+    /**
+     * Fetchs all game engines from IGDB API
+     */
+    public async fetchGameEngines() {
+        const query = `
+            fields name,slug;
+            offset 0;
+            sort id asc;
+        `
+        const gameEngines: NewGameEngine[] = await this.batchRequest('game_engines', query)
+
+        return gameEngines
     }
 }
 

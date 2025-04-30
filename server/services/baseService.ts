@@ -28,6 +28,28 @@ export abstract class BaseService<TTable extends PgTable> {
         return result.length
     }
 
+    public async bulkInsert(data: TTable['$inferInsert'][], batchSize = 500) {
+        let insertedCount = 0
+        const totalRecords = data.length
+
+        return this.db.transaction(async (tx) => {
+            const chunks = this.chunkArray(data, batchSize)
+            for (const chunk of chunks) {
+                const result = await tx
+                    .insert(this.table)
+                    .values(chunk)
+                    .onConflictDoNothing()
+                    .returning({ id: this.idColumn })
+
+                insertedCount += result.length
+
+                console.log(`Inserted ${result.length} records of ${totalRecords} in this batch`)
+            }
+
+            return insertedCount
+        })
+    }
+
     public async findAll(): Promise<TTable['$inferSelect'][]> {
         const result = await this.db.select().from(this.table)
 
@@ -57,5 +79,13 @@ export abstract class BaseService<TTable extends PgTable> {
         const { rowCount } = await this.db.delete(this.table).where(eq(this.idColumn, id)).execute()
 
         return rowCount
+    }
+
+    private chunkArray<T>(array: T[], chunkSize: number): T[][] {
+        const result: T[][] = []
+        for (let i = 0; i < array.length; i += chunkSize) {
+            result.push(array.slice(i, i + chunkSize))
+        }
+        return result
     }
 }
