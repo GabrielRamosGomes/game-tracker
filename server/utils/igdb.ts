@@ -90,6 +90,7 @@ class IGDB_Client {
                 console.log(`Total records fetched: ${allData.length}`)
                 break
             }
+
             offset += batchSize
         }
 
@@ -106,7 +107,7 @@ class IGDB_Client {
             limit ${batchSize};
             offset 0;
         `
-        const allGames: unknown[] = await this.batchRequest('games', query, batchSize)
+        const allGames = await this.batchRequest<unknown[]>('games', query, batchSize)
 
         return allGames
     }
@@ -120,7 +121,7 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const companies: NewCompanyStatus[] = await this.request('company_statuses', query)
+        const companies = await this.request<NewCompanyStatus[]>('company_statuses', query)
 
         return companies
     }
@@ -134,7 +135,7 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const gameModes: NewGameMode[] = await this.request('game_modes', query)
+        const gameModes = await this.request<NewGameMode[]>('game_modes', query)
 
         return gameModes
     }
@@ -148,7 +149,7 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const gameTypes: NewGameType[] = await this.request('game_types', query)
+        const gameTypes = await this.request<NewGameType[]>('game_types', query)
 
         return gameTypes
     }
@@ -162,7 +163,7 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const genres: NewGenre[] = await this.request('genres', query)
+        const genres = await this.request<NewGenre[]>('genres', query)
 
         return genres
     }
@@ -176,7 +177,7 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const keywords: NewKeyword[] = await this.batchRequest('keywords', query)
+        const keywords = await this.batchRequest<NewKeyword[]>('keywords', query)
 
         return keywords
     }
@@ -190,7 +191,7 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const platformFamilies: NewPlatformFamily[] = await this.request('platform_families', query)
+        const platformFamilies = await this.request<NewPlatformFamily[]>('platform_families', query)
 
         return platformFamilies
     }
@@ -204,7 +205,7 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const platformTypes: NewPlatformType[] = await this.request('platform_types', query)
+        const platformTypes = await this.request<NewPlatformType[]>('platform_types', query)
 
         return platformTypes
     }
@@ -218,7 +219,7 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const playerPerspectives: NewPlayerPerspective[] = await this.request(
+        const playerPerspectives = await this.request<NewPlayerPerspective[]>(
             'player_perspectives',
             query
         )
@@ -235,7 +236,7 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const gameEngines: NewGameEngine[] = await this.batchRequest('game_engines', query)
+        const gameEngines = await this.batchRequest<NewGameEngine>('game_engines', query)
 
         return gameEngines
     }
@@ -249,7 +250,7 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const platforms: NewPlatform[] = await this.batchRequest('platforms', query)
+        const platforms = await this.batchRequest<NewPlatform>('platforms', query)
 
         return platforms
     }
