@@ -51,9 +51,6 @@ class IGDB_Client {
      * This is used to avoid rate limiting from the IGDB API
      * @param ms The number of milliseconds to sleep defaults to 250ms
      * @returns A promise that resolves after the given number of milliseconds
-     * @example
-     * await sleep(1000) // sleeps for 1 second
-     * await sleep() // sleeps for 250ms
      */
     private sleep(ms: number = 250) {
         return new Promise((resolve) => setTimeout(resolve, ms))
