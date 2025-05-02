@@ -46,7 +46,15 @@ class IGDB_Client {
     //     { wrongId: 1761, name: 'luxe engine', slug: 'luxe-engine--1', rightId: 1678 },
     // ]
 
-    // sleep function to avoid rate limiting (4 requests per second)
+    /**
+     * Sleeps for a given number of milliseconds.
+     * This is used to avoid rate limiting from the IGDB API
+     * @param ms The number of milliseconds to sleep defaults to 250ms
+     * @returns A promise that resolves after the given number of milliseconds
+     * @example
+     * await sleep(1000) // sleeps for 1 second
+     * await sleep() // sleeps for 250ms
+     */
     private sleep(ms: number = 250) {
         return new Promise((resolve) => setTimeout(resolve, ms))
     }
