@@ -11,6 +11,10 @@ import type {
     NewPlayerPerspective
 } from '../database/schema'
 
+/**
+ * Wrapper for the IGDB API
+ * @see https://api-docs.igdb.com/#endpoints
+ */
 class IGDB_Client {
     private client_id: string
     private access_token: string
