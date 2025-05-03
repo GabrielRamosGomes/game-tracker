@@ -169,7 +169,7 @@ class IGDB_Client {
     }
 
     /**
-     * Fetchs all game engines from IGDB API
+     * Fetches all game engines from IGDB API
      */
     public async fetchGenres() {
         const query = `
@@ -183,7 +183,7 @@ class IGDB_Client {
     }
 
     /**
-     * Fetchs all keywords from IGDB API
+     * Fetches all keywords from IGDB API
      */
     public async fetchKeywords() {
         const query = `
@@ -197,7 +197,7 @@ class IGDB_Client {
     }
 
     /**
-     * Fetchs all platform families from IGDB API
+     * Fetches all platform families from IGDB API
      */
     public async fetchPlatformFamilies() {
         const query = `
@@ -211,7 +211,7 @@ class IGDB_Client {
     }
 
     /**
-     * Fetchs all platform types from IGDB API
+     * Fetches all platform types from IGDB API
      */
     public async fetchPlatformTypes() {
         const query = `
@@ -225,7 +225,7 @@ class IGDB_Client {
     }
 
     /**
-     * Fetchs all player perspectives from IGDB API
+     * Fetches all player perspectives from IGDB API
      */
     public async fetchPlayerPerspectives() {
         const query = `
@@ -242,7 +242,7 @@ class IGDB_Client {
     }
 
     /**
-     * Fetchs all game engines from IGDB API
+     * Fetches all game engines from IGDB API
      */
     public async fetchGameEngines() {
         const query = `
@@ -256,7 +256,7 @@ class IGDB_Client {
     }
 
     /**
-     * Fetchs all platforms from IGDB API
+     * Fetches all platforms from IGDB API
      */
     public async fetchPlatforms() {
         const query = `
