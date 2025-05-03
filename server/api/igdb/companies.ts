@@ -7,13 +7,13 @@ export default defineEventHandler(async () => {
     if (!companies.length) {
         throw createError({
             statusCode: 400,
-            statusMessage: 'No countries found'
+            statusMessage: 'No companies found'
         })
     }
 
     const insertedRecords = await companyService.bulkInsert(companies)
 
     return {
-        message: `Inserted ${insertedRecords} countries into the database`
+        message: `Inserted ${insertedRecords} companies into the database`
     }
 })
