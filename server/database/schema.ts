@@ -15,6 +15,7 @@ export const games = pgTable('games', {
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewGame = typeof games.$inferInsert
 
 export const game_engines = pgTable('game_engines', {
     id: serial('id').primaryKey(),
@@ -62,6 +63,7 @@ export const game_genres = pgTable('game_genres', {
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewGameGenre = typeof game_genres.$inferInsert
 
 export const platforms = pgTable('platforms', {
     id: serial('id').primaryKey(),
@@ -135,6 +137,7 @@ export const time_to_beat = pgTable('time_to_beat', {
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewTimeToBeat = typeof time_to_beat.$inferInsert
 
 export const involved_companies = pgTable('involved_companies', {
     id: serial('id').primaryKey(),
@@ -152,6 +155,7 @@ export const involved_companies = pgTable('involved_companies', {
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewInvolvedCompany = typeof involved_companies.$inferInsert
 
 export const player_perspectives = pgTable('player_perspectives', {
     id: serial('id').primaryKey(),
@@ -173,6 +177,7 @@ export const game_player_perspectives = pgTable('game_player_perspectives', {
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewGamePlayerPerspective = typeof game_player_perspectives.$inferInsert
 
 export const keywords = pgTable('keywords', {
     id: serial('id').primaryKey(),
@@ -194,6 +199,7 @@ export const game_keywords = pgTable('game_keywords', {
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewGameKeyword = typeof game_keywords.$inferInsert
 
 export const game_engines_games = pgTable('game_engines_games', {
     id: serial('id').primaryKey(),
@@ -206,3 +212,4 @@ export const game_engines_games = pgTable('game_engines_games', {
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewGameEngineGame = typeof game_engines_games.$inferInsert
