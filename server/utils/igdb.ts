@@ -270,6 +270,9 @@ class IGDB_Client {
         return platforms
     }
 
+    /**
+     * Fetches all themes from IGDB API
+     */
     public async fetchThemes() {
         const query = `
             fields name,slug;
