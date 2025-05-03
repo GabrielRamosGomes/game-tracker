@@ -7,7 +7,7 @@ export default defineEventHandler(async () => {
     if (!themes.length) {
         throw createError({
             statusCode: 400,
-            statusMessage: 'No players themes found'
+            statusMessage: 'No themes found'
         })
     }
 
