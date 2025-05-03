@@ -97,9 +97,9 @@ CREATE TABLE "game_types" (
 --> statement-breakpoint
 CREATE TABLE "games" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"aggregated_rating" numeric NOT NULL,
-	"rating" numeric NOT NULL,
-	"first_release_date" timestamp NOT NULL,
+	"aggregated_rating" numeric,
+	"rating" numeric,
+	"first_release_date" timestamp,
 	"storyline" text,
 	"game_type" integer NOT NULL,
 	"name" text NOT NULL,

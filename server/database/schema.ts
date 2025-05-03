@@ -2,9 +2,9 @@ import { pgTable, serial, text, timestamp, integer, boolean, decimal } from 'dri
 
 export const games = pgTable('games', {
     id: serial('id').primaryKey(),
-    aggregated_rating: decimal('aggregated_rating').notNull(),
-    rating: decimal('rating').notNull(),
-    first_release_date: timestamp('first_release_date').notNull(),
+    aggregated_rating: decimal('aggregated_rating'),
+    rating: decimal('rating'),
+    first_release_date: timestamp('first_release_date'),
     storyline: text('storyline'),
     game_type: integer('game_type')
         .notNull()
