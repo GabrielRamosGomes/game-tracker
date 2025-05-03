@@ -1,14 +1,21 @@
 import type {
+    NewCompany,
     NewCompanyStatus,
+    NewGameEngine,
     NewGameMode,
     NewGameType,
     NewGenre,
     NewKeyword,
+    NewPlatform,
     NewPlatformFamily,
     NewPlatformType,
     NewPlayerPerspective
 } from '../database/schema'
 
+/**
+ * Wrapper for the IGDB API
+ * @see https://api-docs.igdb.com/#endpoints
+ */
 class IGDB_Client {
     private client_id: string
     private access_token: string
@@ -28,7 +35,12 @@ class IGDB_Client {
         }
     }
 
-    // sleep function to avoid rate limiting (4 requests per second)
+    /**
+     * Sleeps for a given number of milliseconds.
+     * This is used to avoid rate limiting from the IGDB API
+     * @param ms The number of milliseconds to sleep defaults to 250ms
+     * @returns A promise that resolves after the given number of milliseconds
+     */
     private sleep(ms: number = 250) {
         return new Promise((resolve) => setTimeout(resolve, ms))
     }
@@ -76,6 +88,7 @@ class IGDB_Client {
                 console.log(`Total records fetched: ${allData.length}`)
                 break
             }
+
             offset += batchSize
         }
 
@@ -92,7 +105,7 @@ class IGDB_Client {
             limit ${batchSize};
             offset 0;
         `
-        const allGames: unknown[] = await this.batchRequest('games', query, batchSize)
+        const allGames = await this.batchRequest<unknown[]>('games', query, batchSize)
 
         return allGames
     }
@@ -106,7 +119,23 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const companies: NewCompanyStatus[] = await this.request('company_statuses', query)
+        const companies = await this.request<NewCompanyStatus[]>('company_statuses', query)
+
+        return companies
+    }
+
+    /**
+     * Fetches all companies from IGDB API
+     */
+    public async fetchCompanies() {
+        const query = `
+            fields description,name,status,slug,country;
+            limit 500;
+            offset 0;
+            sort id asc;
+        `
+
+        const companies = await this.batchRequest<NewCompany>('companies', query)
 
         return companies
     }
@@ -120,7 +149,7 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const gameModes: NewGameMode[] = await this.request('game_modes', query)
+        const gameModes = await this.request<NewGameMode[]>('game_modes', query)
 
         return gameModes
     }
@@ -134,13 +163,13 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const gameTypes: NewGameType[] = await this.request('game_types', query)
+        const gameTypes = await this.request<NewGameType[]>('game_types', query)
 
         return gameTypes
     }
 
     /**
-     * Fetchs all game engines from IGDB API
+     * Fetches all game engines from IGDB API
      */
     public async fetchGenres() {
         const query = `
@@ -148,13 +177,13 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const genres: NewGenre[] = await this.request('genres', query)
+        const genres = await this.request<NewGenre[]>('genres', query)
 
         return genres
     }
 
     /**
-     * Fetchs all keywords from IGDB API
+     * Fetches all keywords from IGDB API
      */
     public async fetchKeywords() {
         const query = `
@@ -162,13 +191,13 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const keywords: NewKeyword[] = await this.batchRequest('keywords', query)
+        const keywords = await this.batchRequest<NewKeyword>('keywords', query)
 
         return keywords
     }
 
     /**
-     * Fetchs all platform families from IGDB API
+     * Fetches all platform families from IGDB API
      */
     public async fetchPlatformFamilies() {
         const query = `
@@ -176,13 +205,13 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const platformFamilies: NewPlatformFamily[] = await this.request('platform_families', query)
+        const platformFamilies = await this.request<NewPlatformFamily[]>('platform_families', query)
 
         return platformFamilies
     }
 
     /**
-     * Fetchs all platform types from IGDB API
+     * Fetches all platform types from IGDB API
      */
     public async fetchPlatformTypes() {
         const query = `
@@ -190,13 +219,13 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const platformTypes: NewPlatformType[] = await this.request('platform_types', query)
+        const platformTypes = await this.request<NewPlatformType[]>('platform_types', query)
 
         return platformTypes
     }
 
     /**
-     * Fetchs all player perspectives from IGDB API
+     * Fetches all player perspectives from IGDB API
      */
     public async fetchPlayerPerspectives() {
         const query = `
@@ -204,12 +233,40 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const playerPerspectives: NewPlayerPerspective[] = await this.request(
+        const playerPerspectives = await this.request<NewPlayerPerspective[]>(
             'player_perspectives',
             query
         )
 
         return playerPerspectives
+    }
+
+    /**
+     * Fetches all game engines from IGDB API
+     */
+    public async fetchGameEngines() {
+        const query = `
+            fields name,slug;
+            offset 0;
+            sort id asc;
+        `
+        const gameEngines = await this.batchRequest<NewGameEngine>('game_engines', query)
+
+        return gameEngines
+    }
+
+    /**
+     * Fetches all platforms from IGDB API
+     */
+    public async fetchPlatforms() {
+        const query = `
+            fields abbreviation,name,platform_family,platform_type,slug;
+            offset 0;
+            sort id asc;
+        `
+        const platforms = await this.batchRequest<NewPlatform>('platforms', query)
+
+        return platforms
     }
 }
 

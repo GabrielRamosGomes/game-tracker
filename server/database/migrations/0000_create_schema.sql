@@ -1,14 +1,12 @@
 CREATE TABLE "companies" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"country" integer NOT NULL,
-	"description" text NOT NULL,
-	"logo" text NOT NULL,
+	"country" integer,
+	"description" text,
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
-	"status" integer NOT NULL,
+	"status" integer,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "companies_name_unique" UNIQUE("name"),
 	CONSTRAINT "companies_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
@@ -23,7 +21,7 @@ CREATE TABLE "company_status" (
 CREATE TABLE "countries" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
-	"code" text,
+	"code" integer,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "countries_name_unique" UNIQUE("name"),
@@ -32,12 +30,10 @@ CREATE TABLE "countries" (
 --> statement-breakpoint
 CREATE TABLE "game_engines" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"logo" text NOT NULL,
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "game_engines_name_unique" UNIQUE("name"),
 	CONSTRAINT "game_engines_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
@@ -95,7 +91,6 @@ CREATE TABLE "games" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"aggregated_rating" numeric NOT NULL,
 	"rating" numeric NOT NULL,
-	"game_engine" integer NOT NULL,
 	"game_mode" integer NOT NULL,
 	"game_type" integer NOT NULL,
 	"name" text NOT NULL,
@@ -159,10 +154,10 @@ CREATE TABLE "platform_types" (
 --> statement-breakpoint
 CREATE TABLE "platforms" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"abbreviation" text NOT NULL,
+	"abbreviation" text,
 	"name" text NOT NULL,
 	"slug" text NOT NULL,
-	"platform_type" integer NOT NULL,
+	"platform_type" integer,
 	"platform_family" integer,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
@@ -190,7 +185,7 @@ CREATE TABLE "time_to_beat" (
 	"created_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
-ALTER TABLE "companies" ADD CONSTRAINT "companies_country_countries_id_fk" FOREIGN KEY ("country") REFERENCES "public"."countries"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "companies" ADD CONSTRAINT "companies_country_countries_code_fk" FOREIGN KEY ("country") REFERENCES "public"."countries"("code") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "companies" ADD CONSTRAINT "companies_status_company_status_id_fk" FOREIGN KEY ("status") REFERENCES "public"."company_status"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "game_engines_games" ADD CONSTRAINT "game_engines_games_game_id_games_id_fk" FOREIGN KEY ("game_id") REFERENCES "public"."games"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "game_engines_games" ADD CONSTRAINT "game_engines_games_game_engine_id_game_engines_id_fk" FOREIGN KEY ("game_engine_id") REFERENCES "public"."game_engines"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
@@ -200,7 +195,6 @@ ALTER TABLE "game_keywords" ADD CONSTRAINT "game_keywords_game_id_games_id_fk" F
 ALTER TABLE "game_keywords" ADD CONSTRAINT "game_keywords_keyword_id_keywords_id_fk" FOREIGN KEY ("keyword_id") REFERENCES "public"."keywords"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "game_player_perspectives" ADD CONSTRAINT "game_player_perspectives_game_id_games_id_fk" FOREIGN KEY ("game_id") REFERENCES "public"."games"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "game_player_perspectives" ADD CONSTRAINT "game_player_perspectives_player_perspective_id_player_perspectives_id_fk" FOREIGN KEY ("player_perspective_id") REFERENCES "public"."player_perspectives"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "games" ADD CONSTRAINT "games_game_engine_game_engines_id_fk" FOREIGN KEY ("game_engine") REFERENCES "public"."game_engines"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "games" ADD CONSTRAINT "games_game_mode_game_modes_id_fk" FOREIGN KEY ("game_mode") REFERENCES "public"."game_modes"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "games" ADD CONSTRAINT "games_game_type_game_types_id_fk" FOREIGN KEY ("game_type") REFERENCES "public"."game_types"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "involved_companies" ADD CONSTRAINT "involved_companies_company_id_companies_id_fk" FOREIGN KEY ("company_id") REFERENCES "public"."companies"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint

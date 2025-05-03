@@ -14,9 +14,9 @@
 
 ### Insert Dependent Tables
 
-- [ ] companies (needs countries, company_status)
-- [ ] platforms (needs platform_families, platform_types)
-- [ ] game_engines
+- [x] companies (needs countries, company_status)
+- [x] platforms (needs platform_families, platform_types)
+- [x] game_engines
 - [ ] games (needs game_engines, game_modes, game_types)
 
 ### Insert Link (Many-to-Many) Tables
@@ -30,3 +30,8 @@
 ### Insert Extras
 
 - [ ] time_to_beat (needs games)
+
+### Backup files
+
+- 1-phase-backup - Contains all tables from "Insert Independent Tables"
+- 1.5-phase-backup - All the above + game_engines & platforms & companies from dependent tables
