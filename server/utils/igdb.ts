@@ -260,7 +260,7 @@ class IGDB_Client {
      */
     public async fetchPlatforms() {
         const query = `
-            fields abbreviation,platform_type,name,platform_family,platform_type,slug;
+            fields abbreviation,name,platform_family,platform_type,slug;
             offset 0;
             sort id asc;
         `
