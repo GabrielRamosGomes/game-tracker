@@ -103,3 +103,8 @@ CREATE TRIGGER set_updated_at_time_to_beat
 BEFORE UPDATE ON time_to_beat
 FOR EACH ROW
 EXECUTE FUNCTION set_updated_at();
+
+CREATE TRIGGER set_updated_at_themes
+BEFORE UPDATE ON themes
+FOR EACH ROW
+EXECUTE FUNCTION set_updated_at();
