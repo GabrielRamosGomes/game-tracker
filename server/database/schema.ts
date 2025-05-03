@@ -4,6 +4,7 @@ export const games = pgTable('games', {
     id: serial('id').primaryKey(),
     aggregated_rating: decimal('aggregated_rating').notNull(),
     rating: decimal('rating').notNull(),
+    storyline: text('storyline'),
     game_mode: integer('game_mode')
         .notNull()
         .references(() => game_modes.id),
@@ -213,3 +214,12 @@ export const game_engines_games = pgTable('game_engines_games', {
     created_at: timestamp('created_at').defaultNow().notNull()
 })
 export type NewGameEngineGame = typeof game_engines_games.$inferInsert
+
+export const themes = pgTable('themes', {
+    id: serial('id').primaryKey(),
+    name: text('name').notNull().unique(),
+    slug: text('slug').notNull().unique(),
+    updated_at: timestamp('updated_at').defaultNow().notNull(),
+    created_at: timestamp('created_at').defaultNow().notNull()
+})
+export type NewTheme = typeof themes.$inferInsert

@@ -91,6 +91,7 @@ CREATE TABLE "games" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"aggregated_rating" numeric NOT NULL,
 	"rating" numeric NOT NULL,
+	"storyline" text,
 	"game_mode" integer NOT NULL,
 	"game_type" integer NOT NULL,
 	"name" text NOT NULL,
@@ -173,6 +174,16 @@ CREATE TABLE "player_perspectives" (
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "player_perspectives_name_unique" UNIQUE("name"),
 	CONSTRAINT "player_perspectives_slug_unique" UNIQUE("slug")
+);
+--> statement-breakpoint
+CREATE TABLE "themes" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"name" text NOT NULL,
+	"slug" text NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "themes_name_unique" UNIQUE("name"),
+	CONSTRAINT "themes_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE "time_to_beat" (

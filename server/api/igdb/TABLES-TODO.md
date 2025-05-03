@@ -11,6 +11,7 @@
 - [x] platform_families
 - [x] platform_types
 - [x] player_perspectives
+- [x] themes
 
 ### Insert Dependent Tables
 
