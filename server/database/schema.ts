@@ -18,7 +18,7 @@ export const games = pgTable('games', {
 
 export const game_engines = pgTable('game_engines', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull().unique(),
+    name: text('name').notNull(),
     slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
@@ -96,7 +96,7 @@ export const companies = pgTable('companies', {
     id: serial('id').primaryKey(),
     country: integer('country').references(() => countries.code),
     description: text('description'),
-    name: text('name').notNull().unique(),
+    name: text('name').notNull(),
     slug: text('slug').notNull().unique(),
     status: integer('status').references(() => companies_status.id),
     updated_at: timestamp('updated_at').defaultNow().notNull(),

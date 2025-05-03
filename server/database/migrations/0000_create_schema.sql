@@ -7,7 +7,6 @@ CREATE TABLE "companies" (
 	"status" integer,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "companies_name_unique" UNIQUE("name"),
 	CONSTRAINT "companies_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
@@ -35,7 +34,6 @@ CREATE TABLE "game_engines" (
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "game_engines_name_unique" UNIQUE("name"),
 	CONSTRAINT "game_engines_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
