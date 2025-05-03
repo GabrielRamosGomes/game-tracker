@@ -186,7 +186,7 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const keywords = await this.batchRequest<NewKeyword[]>('keywords', query)
+        const keywords = await this.batchRequest<NewKeyword>('keywords', query)
 
         return keywords
     }
