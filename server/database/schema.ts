@@ -94,19 +94,15 @@ export type NewPlatformFamily = typeof platform_families.$inferInsert
 
 export const companies = pgTable('companies', {
     id: serial('id').primaryKey(),
-    country: integer('country')
-        .notNull()
-        .references(() => countries.id),
-    description: text('description').notNull(),
-    logo: text('logo').notNull(),
+    country: integer('country').references(() => countries.code),
+    description: text('description'),
     name: text('name').notNull().unique(),
     slug: text('slug').notNull().unique(),
-    status: integer('status')
-        .notNull()
-        .references(() => companies_status.id),
+    status: integer('status').references(() => companies_status.id),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })
+export type NewCompany = typeof companies.$inferInsert
 
 export const companies_status = pgTable('company_status', {
     id: serial('id').primaryKey(),
@@ -122,7 +118,7 @@ export type NewCompanyStatus = typeof companies_status.$inferInsert
 export const countries = pgTable('countries', {
     id: serial('id').primaryKey(),
     name: text('name').unique().notNull(),
-    code: text('code').unique(),
+    code: integer('code').unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })

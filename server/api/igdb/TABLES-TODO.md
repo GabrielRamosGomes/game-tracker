@@ -30,3 +30,9 @@
 ### Insert Extras
 
 - [ ] time_to_beat (needs games)
+
+### Backup files
+
+- 1st-phase-backup - Contains all tables from "Insert Independent Tables"
+- 1.5-phase-backup - All the above + game_engines & platforms from dependent tables
+- 1.6-phase-backup - All the above + companies

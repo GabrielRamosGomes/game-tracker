@@ -54,9 +54,10 @@ export abstract class BaseService<TTable extends PgTable> {
 
                 insertedCount += result.length
 
-                console.log(`Inserted ${result.length} records of ${totalRecords} in this batch`)
+                console.log(`Inserted ${result.length} from ${chunk.length} records`)
             }
 
+            console.log(`Inserted ${insertedCount} from ${totalRecords} records`)
             return insertedCount
         })
     }

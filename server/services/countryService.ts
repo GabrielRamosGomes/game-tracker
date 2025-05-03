@@ -6,7 +6,7 @@ interface ISO_3166_Country {
     name: {
         common: string
     }
-    ccn3: string
+    ccn3: number
 }
 
 class CountryService extends BaseService<typeof countries> {
@@ -21,7 +21,7 @@ class CountryService extends BaseService<typeof countries> {
         const countries: NewCountry[] = countryList.map((country: ISO_3166_Country) => {
             return {
                 name: country.name.common,
-                code: country.ccn3
+                code: country.ccn3 ?? null
             }
         })
 

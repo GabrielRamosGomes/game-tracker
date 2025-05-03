@@ -1,4 +1,5 @@
 import type {
+    NewCompany,
     NewCompanyStatus,
     NewGameEngine,
     NewGameMode,
@@ -44,6 +45,54 @@ class IGDB_Client {
     //     { wrongId: 1503, name: 'Box2D', slug: 'box2d--1', rightId: 343 },
     //     { wrongId: 1534, name: 'M.U.G.E.N', slug: 'mugen--1', rightId: 1053 },
     //     { wrongId: 1761, name: 'luxe engine', slug: 'luxe-engine--1', rightId: 1678 },
+    // ]
+
+    // Games that contain the wrong company id should be updated to the right company id before inserting into the database
+    // private duplicatedCompanies: [
+    //     { wrongId: 949; name: 'Reloaded Productions'; slug: 'reloaded-productions--2'; status: 0, rightId: 734, },
+    //     {
+    //         wrongId: 1154
+    //         name: 'International Computer Entertainment'
+    //         slug: 'international-computer-entertainment--2'
+    //         status: 0,
+    //         rightId: 1152
+    //     },
+    //     { wrongId: 3103; name: 'Gamania'; slug: 'gamania--1'; status: 0, rightId: 3098, },
+    //     { wrongId: 5219; name: 'Kingsoft'; slug: 'kingsoft--1'; status: 0, rightId: 5218, },
+    //     { wrongId: 5310; name: 'Subaltern Games'; slug: 'subaltern-games--1'; status: 0, rightId: 5309, },
+    //     { wrongId: 5349; name: 'Elliptic Games'; slug: 'elliptic-games--1'; status: 0, rightId: 5348, },
+    //     { wrongId: 6345; name: 'Hexacto'; slug: 'hexacto--1'; status: 0, rightId: 6342, },
+    //     { wrongId: 7032; name: "Will O'Neill"; slug: 'will-oneill--1'; status: 0, rightId: 7031, },
+    //     { wrongId: 7460; name: 'Bounce Entertainment'; slug: 'bounce-entertainment--1'; status: 0, rightId: 7459, },
+    //     { wrongId: 7679; name: 'Giulia Airoldi'; slug: 'giulia-airoldi--1'; status: 0, rightId: 7677, },
+    //     { wrongId: 7686; name: 'Void Majestherion'; slug: 'void-majestherion--1'; status: 0, rightId: 7683, },
+    //     { wrongId: 7687; name: 'Mathieu Renaudat'; slug: 'mathieu-renaudat--1'; status: 0, rightId: 7684, },
+    //     { wrongId: 7688; name: 'Luigi Di Guida'; slug: 'luigi-di-guida--1'; status: 0, rightId: 7685, },
+    //     { wrongId: 7724; name: 'Channel 4'; slug: 'channel-4--1'; status: 0, rightId: 7722, },
+    //     { wrongId: 7843; name: 'Johannes Gotlén'; slug: 'johannes-gotlen--1'; status: 0, rightId: 7841, },
+    //     { wrongId: 7844; name: 'Erik Svedäng AB'; slug: 'erik-svedang-ab--1'; status: 0, rightId: 7842, },
+    //     {
+    //         wrongId: 8005
+    //         name: 'Immanitas Entertainment'
+    //         slug: 'immanitas-entertainment--1'
+    //         status: 0,
+    //         rightId: 4716
+    //     },
+    //     { wrongId: 8955; name: 'Dreamatrix'; slug: 'dreamatrix--1'; status: 0, rightId: 8332, },
+    //     { wrongId: 9336; name: 'Bryan Gale'; slug: 'bryan-gale--1'; status: 0, rightId: 9335, },
+    //     { wrongId: 9338; name: 'Thew'; slug: 'thew--1'; status: 0, rightId: 9337, },
+    //     { wrongId: 9411; name: 'Highcastle Studios'; slug: 'highcastle-studios--1'; status: 0, rightId: 9410, },
+    //     { wrongId: 9418; name: 'Glow Games'; slug: 'glow-games--1'; status: 0, rightId: 9417, },
+    //     { wrongId: 2479; name: 'SeeThrough Studios'; slug: 'seethrough-studios-7b482859-976e-4ca0-957c-8430ff56a89e'; status: 0, rightId: 10539, },
+    //     {
+    //         wrongId: 11261
+    //         name: 'Nether Productions, LLC'
+    //         slug: 'nether-productions-llc--1'
+    //         status: 0,
+    //         rightId: 5453
+    //     },
+    //     { wrongId: 21747; name: 'IVI Publishing, Inc.'; slug: 'ivi-publishing-inc--1'; status: 0, rightId: 19063, },
+    //     { wrongId: 26015; name: 'The Micro User'; slug: 'the-micro-user--1'; status: 0, rightId: 26010, },
     // ]
 
     /**
@@ -131,6 +180,22 @@ class IGDB_Client {
             sort id asc;
         `
         const companies = await this.request<NewCompanyStatus[]>('company_statuses', query)
+
+        return companies
+    }
+
+    /**
+     * Fetches all companies from IGDB API
+     */
+    public async fetchCompanies() {
+        const query = `
+            fields description,name,status,slug,country;
+            limit 500;
+            offset 0;
+            sort id asc;
+        `
+
+        const companies = await this.batchRequest<NewCompany>('companies', query)
 
         return companies
     }
