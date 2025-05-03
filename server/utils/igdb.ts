@@ -1,6 +1,7 @@
 import type {
     NewCompany,
     NewCompanyStatus,
+    NewGame,
     NewGameEngine,
     NewGameMode,
     NewGameType,
@@ -100,13 +101,13 @@ class IGDB_Client {
      * Fetches all games from IGDB API, this might take a while since there are a lot of games
      * @param batchSize The number of records to fetch in each request
      */
-    public async fetchAllGames(batchSize: number = 500) {
+    public async fetchGames(batchSize: number = 500) {
         const query = `
-            fields name, game_type, genres, first_release_date, rating, storyline, url, involved_companies, game_status, expansions, dlcs, age_ratings, collections, cover, aggregated_rating, game_engines;
+            fields aggregated_rating, storyline, game_type, name, slug, first_release_date;
             limit ${batchSize};
             offset 0;
         `
-        const allGames = await this.batchRequest<unknown[]>('games', query, batchSize)
+        const allGames = await this.batchRequest<NewGame>('games', query, batchSize)
 
         return allGames
     }

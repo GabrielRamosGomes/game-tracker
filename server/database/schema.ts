@@ -231,6 +231,6 @@ export const game_platforms = pgTable('game_platforms', {
         .notNull()
         .references(() => platforms.id),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
-    created_at: timestamp('created_at').defaultNow().notNull(),
-});
+    created_at: timestamp('created_at').defaultNow().notNull()
+})
 export type NewGamePlatform = typeof game_platforms.$inferInsert
