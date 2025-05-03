@@ -9,7 +9,8 @@ import type {
     NewPlatform,
     NewPlatformFamily,
     NewPlatformType,
-    NewPlayerPerspective
+    NewPlayerPerspective,
+    NewTheme
 } from '../database/schema'
 
 /**
@@ -267,6 +268,17 @@ class IGDB_Client {
         const platforms = await this.batchRequest<NewPlatform>('platforms', query)
 
         return platforms
+    }
+
+    public async fetchThemes() {
+        const query = `
+            fields name,slug;
+            offset 0;
+            sort id asc;
+        `
+        const themes = await this.request<NewTheme[]>('themes', query)
+
+        return themes
     }
 }
 
