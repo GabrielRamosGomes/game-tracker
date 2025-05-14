@@ -9,7 +9,7 @@ export const games = pgTable('games', {
     game_type: integer('game_type')
         .notNull()
         .references(() => game_types.id),
-    name: text('name').notNull().unique(),
+    name: text('name').notNull(),
     slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()

@@ -106,7 +106,6 @@ CREATE TABLE "games" (
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "games_name_unique" UNIQUE("name"),
 	CONSTRAINT "games_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
