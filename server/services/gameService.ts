@@ -7,7 +7,7 @@ class GameService extends BaseService<typeof games> {
         const transformedData = data.map((game) => {
             const transformedDate = game.first_release_date
                 ? new Date((game.first_release_date as unknown as number) * 1000)
-                : null // Convert Unix timestamp to JavaScript Date object
+                : null
 
             return {
                 ...game,
