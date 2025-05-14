@@ -108,3 +108,14 @@ CREATE TRIGGER set_updated_at_themes
 BEFORE UPDATE ON themes
 FOR EACH ROW
 EXECUTE FUNCTION set_updated_at();
+
+CREATE TRIGGER set_updated_at_game_themes
+BEFORE UPDATE ON game_themes
+FOR EACH ROW
+EXECUTE FUNCTION set_updated_at();
+
+CREATE TRIGGER set_updated_at_game_modes_games
+BEFORE UPDATE ON game_modes_games
+FOR EACH ROW
+EXECUTE FUNCTION set_updated_at();
+

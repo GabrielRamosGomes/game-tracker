@@ -42,6 +42,19 @@ export const game_modes = pgTable('game_modes', {
 })
 export type NewGameMode = typeof game_modes.$inferInsert
 
+export const game_modes_games = pgTable('game_modes_games', {
+    id: serial('id').primaryKey(),
+    game_id: integer('game_id')
+        .notNull()
+        .references(() => games.id),
+    game_mode_id: integer('game_mode_id')
+        .notNull()
+        .references(() => game_modes.id),
+    updated_at: timestamp('updated_at').defaultNow().notNull(),
+    created_at: timestamp('created_at').defaultNow().notNull()
+})
+export type NewGameModeGame = typeof game_modes_games.$inferInsert
+
 export const genres = pgTable('genres', {
     id: serial('id').primaryKey(),
     name: text('name').notNull().unique(),
@@ -221,6 +234,19 @@ export const themes = pgTable('themes', {
     created_at: timestamp('created_at').defaultNow().notNull()
 })
 export type NewTheme = typeof themes.$inferInsert
+
+export const game_themes = pgTable('game_themes', {
+    id: serial('id').primaryKey(),
+    game_id: integer('game_id')
+        .notNull()
+        .references(() => games.id),
+    theme_id: integer('theme_id')
+        .notNull()
+        .references(() => themes.id),
+    updated_at: timestamp('updated_at').defaultNow().notNull(),
+    created_at: timestamp('created_at').defaultNow().notNull()
+})
+export type NewGameTheme = typeof game_themes.$inferInsert
 
 export const game_platforms = pgTable('game_platforms', {
     id: serial('id').primaryKey(),

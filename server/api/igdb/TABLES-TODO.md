@@ -18,7 +18,7 @@
 - [x] companies (needs countries, company_status)
 - [x] platforms (needs platform_families, platform_types)
 - [x] game_engines
-- [ ] games (needs game_engines, game_modes, game_types)
+- [x] games (needs game_engines, game_modes, game_types)
 
 ### Insert Link (Many-to-Many) Tables
 
@@ -26,6 +26,9 @@
 - [ ] game_genres (needs games, genres)
 - [ ] game_keywords (needs games, keywords)
 - [ ] game_player_perspectives (needs games, player_perspectives)
+- [ ] game_platforms (needs games, platforms)
+- [ ] game_themes (needs games, themes)
+- [ ] game_modes_games (needs games, game_modes)
 - [ ] involved_companies (needs companies, games)
 
 ### Insert Extras
@@ -36,3 +39,4 @@
 
 - 1-phase-backup - Contains all tables from "Insert Independent Tables"
 - 1.5-phase-backup - All the above + game_engines & platforms & companies from dependent tables
+- 1.6-phase-backup - All the above + games from dependent tables
