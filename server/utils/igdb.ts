@@ -162,6 +162,7 @@ class IGDB_Client {
     public async fetchGameTypes() {
         const query = `
             fields type;
+            limit 500;
             offset 0;
             sort id asc;
         `
@@ -176,6 +177,7 @@ class IGDB_Client {
     public async fetchGenres() {
         const query = `
             fields name,slug;
+            limit 500;
             offset 0;
             sort id asc;
         `
@@ -204,6 +206,7 @@ class IGDB_Client {
     public async fetchPlatformFamilies() {
         const query = `
             fields name,slug;
+            limit 500;
             offset 0;
             sort id asc;
         `
@@ -218,6 +221,7 @@ class IGDB_Client {
     public async fetchPlatformTypes() {
         const query = `
             fields name;
+            limit 500;
             offset 0;
             sort id asc;
         `
@@ -232,6 +236,7 @@ class IGDB_Client {
     public async fetchPlayerPerspectives() {
         const query = `
             fields name,slug;
+            limit 500;
             offset 0;
             sort id asc;
         `
@@ -277,6 +282,7 @@ class IGDB_Client {
     public async fetchThemes() {
         const query = `
             fields name,slug;
+            limit 500;
             offset 0;
             sort id asc;
         `
