@@ -27,7 +27,7 @@
 - [ ] game_keywords (needs games, keywords)
 - [ ] game_player_perspectives (needs games, player_perspectives)
 - [ ] game_platforms (needs games, platforms)
-- [ ] game_themes (needs games, themes)
+- [x] game_themes (needs games, themes)
 - [ ] game_modes_games (needs games, game_modes)
 - [ ] involved_companies (needs companies, games)
 

@@ -14,6 +14,18 @@ import type {
     NewTheme
 } from '../database/schema'
 
+export type GameData = M2MData & NewGame
+
+export type M2MData = {
+    game_engines: number[]
+    game_modes: number[]
+    genres: number[]
+    keywords: number[]
+    player_perspectives: number[]
+    platforms: number[]
+    themes: number[]
+}
+
 /**
  * Wrapper for the IGDB API
  * @see https://api-docs.igdb.com/#endpoints
@@ -103,11 +115,12 @@ class IGDB_Client {
      */
     public async fetchGames(batchSize: number = 500) {
         const query = `
-            fields aggregated_rating, storyline, game_type, name, slug, first_release_date;
+            fields aggregated_rating, storyline, game_type, name, slug, first_release_date, 
+                themes, game_engines, genres, game_modes, keywords, player_perspectives, platforms;
             limit ${batchSize};
             offset 0;
         `
-        const allGames = await this.batchRequest<NewGame>('games', query, batchSize)
+        const allGames = await this.batchRequest<GameData>('games', query, batchSize)
 
         return allGames
     }
