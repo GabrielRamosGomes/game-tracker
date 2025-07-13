@@ -15,7 +15,7 @@ const gamePlayerPerspectiveService = new GamePlayerPerspectiveService(
 class PlayerPerspectiveService extends BaseService<typeof player_perspectives> {
     public async insertGamePlayerPerspectives(data: NewGamePlayerPerspective[]) {
         const records = await gamePlayerPerspectiveService.bulkInsert(data)
-        console.log(`Inserted ${records} game modes into the database`)
+        console.log(`Inserted ${records} game player perspectives into the database.`)
         return records
     }
 }

@@ -120,6 +120,7 @@ class IGDB_Client {
                 themes, game_engines, genres, game_modes, keywords, player_perspectives, platforms;
             limit ${batchSize};
             offset 0;
+            sord id asc;
         `
         const allGames = await this.batchRequest<GameData>('games', query, batchSize)
 

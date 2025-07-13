@@ -119,3 +119,8 @@ BEFORE UPDATE ON game_modes_games
 FOR EACH ROW
 EXECUTE FUNCTION set_updated_at();
 
+CREATE TRIGGER set_updated_at_game_platforms
+BEFORE UPDATE ON game_platforms
+FOR EACH ROW
+EXECUTE FUNCTION set_updated_at();
+
