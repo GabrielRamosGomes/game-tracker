@@ -1,4 +1,13 @@
-import type { NewGame, NewGameEngine, NewGameGenre, NewGameKeyword, NewGameModeGame, NewGamePlatform, NewGamePlayerPerspective, NewGameTheme } from '~/server/database/schema'
+import type { 
+        NewGame,
+        NewGameEngineGame, 
+        NewGameGenre, 
+        NewGameKeyword, 
+        NewGameModeGame, 
+        NewGamePlatform, 
+        NewGamePlayerPerspective, 
+        NewGameTheme 
+    } from '~/server/database/schema'
 import type { GameData } from '~/server/utils/igdb'
 
 // Services
@@ -7,13 +16,16 @@ import { themesService } from '~/server/services/themesService'
 import { gameModeService } from '~/server/services/gameModeService'
 import { genreService } from '~/server/services/genreService'
 import { platformService } from '~/server/services/platformService'
+import { keywordService } from '~/server/services/keywordService'
+import { playerPerspectiveService } from '~/server/services/playerPerspectiveService'
+import { gameEngineService } from '~/server/services/gameEngineService'
 
 import fs from 'fs/promises'
 import path from 'path'
 
 // Used to transform the data from IGDB API to the database schema
 type M2MInsertData = {
-    game_engines: NewGameEngine[],
+    game_engines: NewGameEngineGame[],
     game_modes: NewGameModeGame[],
     genres: NewGameGenre[],
     player_perspectives: NewGamePlayerPerspective[],
@@ -102,6 +114,33 @@ export default defineEventHandler(async () => {
                 })
             })
         }
+
+        if(game.keywords !== undefined && Array.isArray(game.keywords)) {
+            game.keywords.forEach((keyword) => {
+                return m2mGameData.keywords.push({
+                    game_id: game.id as number,
+                    keyword_id: keyword
+                })
+            })
+        }
+        
+        if(game.player_perspectives !== undefined && Array.isArray(game.player_perspectives)) {
+            game.player_perspectives.forEach((perspective) => {
+                return m2mGameData.player_perspectives.push({
+                    game_id: game.id as number,
+                    player_perspective_id: perspective
+                })
+            })
+        }
+
+        if (game.game_engines !== undefined && Array.isArray(game.game_engines)) {
+            game.game_engines.forEach((engine) => {
+                return m2mGameData.game_engines.push({
+                    game_id: game.id as number,
+                    game_engine_id: engine
+                })
+            })
+        }
     }
 
     const insertedRecords = await gameService.bulkInsert(gamesData)
@@ -110,6 +149,9 @@ export default defineEventHandler(async () => {
         gameModeService.insertGameModesGames(m2mGameData.game_modes),
         genreService.insertGameGenres(m2mGameData.genres),
         platformService.insertGamePlatforms(m2mGameData.platforms),
+        keywordService.insertGameKeywords(m2mGameData.keywords),
+        playerPerspectiveService.insertGamePlayerPerspectives(m2mGameData.player_perspectives),
+        gameEngineService.insertGameEnginesGames(m2mGameData.game_engines)
     ])
     
     return {

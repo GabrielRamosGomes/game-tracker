@@ -22,10 +22,10 @@
 
 ### Insert Link (Many-to-Many) Tables
 
-- [ ] game_engines_games (needs games, game_engines)
+- [x] game_engines_games (needs games, game_engines)
 - [x] game_genres (needs games, genres)
-- [ ] game_keywords (needs games, keywords)
-- [ ] game_player_perspectives (needs games, player_perspectives)
+- [x] game_keywords (needs games, keywords)
+- [x] game_player_perspectives (needs games, player_perspectives)
 - [x] game_platforms (needs games, platforms)
 - [x] game_themes (needs games, themes)
 - [x] game_modes_games (needs games, game_modes)
@@ -36,9 +36,5 @@
 - [ ] time_to_beat (needs games)
 
 ### Backup files
-1.5-phase-backup - Contains all data from independent tables and dependent tables +
-        - game_genres
-        - game_platforms
-        - game_themes
-        - game_modes_games
+1.5-phase-backup - Contains all data from independent tables and dependent tables + all many-to-many tables from games table.
 
