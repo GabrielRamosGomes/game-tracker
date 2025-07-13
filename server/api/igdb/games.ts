@@ -1,7 +1,11 @@
 import type { NewGame, NewGameEngine, NewGameGenre, NewGameKeyword, NewGameModeGame, NewGamePlatform, NewGamePlayerPerspective, NewGameTheme } from '~/server/database/schema'
 import type { GameData } from '~/server/utils/igdb'
+
+// Services
 import { gameService } from '~/server/services/gameService'
 import { themesService } from '~/server/services/themesService'
+import { gameModeService } from '~/server/services/gameModeService'
+
 import fs from 'fs/promises'
 import path from 'path'
 
@@ -69,10 +73,22 @@ export default defineEventHandler(async () => {
                 })
             })
         }
+
+        if(game.game_modes !== undefined && Array.isArray(game.game_modes)) {
+            game.game_modes.forEach((mode) => {
+                return m2mGameData.game_modes.push({
+                    game_id: game.id as number,
+                    game_mode_id: mode
+                })
+            })
+        }
     }
 
     const insertedRecords = await gameService.bulkInsert(gamesData)
-    await Promise.all([themesService.insertGameThemes(m2mGameData.themes)])
+    await Promise.all([
+        themesService.insertGameThemes(m2mGameData.themes),
+        gameModeService.insertGameModesGames(m2mGameData.game_modes)
+    ])
     
     return {
         message: `Inserted ${insertedRecords} games into the database`

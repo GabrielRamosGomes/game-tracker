@@ -28,7 +28,7 @@
 - [ ] game_player_perspectives (needs games, player_perspectives)
 - [ ] game_platforms (needs games, platforms)
 - [x] game_themes (needs games, themes)
-- [ ] game_modes_games (needs games, game_modes)
+- [x] game_modes_games (needs games, game_modes)
 - [ ] involved_companies (needs companies, games)
 
 ### Insert Extras
