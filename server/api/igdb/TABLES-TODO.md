@@ -29,6 +29,7 @@
 - [x] game_platforms (needs games, platforms)
 - [x] game_themes (needs games, themes)
 - [x] game_modes_games (needs games, game_modes)
+ This table has problem with the data, some games that are returned don't exist in the games table.
 - [ ] involved_companies (needs companies, games)
 
 ### Insert Extras
