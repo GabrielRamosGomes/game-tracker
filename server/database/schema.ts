@@ -35,7 +35,7 @@ export type NewGameType = typeof game_types.$inferInsert
 
 export const game_modes = pgTable('game_modes', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull().unique(),
+    name: text('name').notNull(),
     slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
@@ -57,7 +57,7 @@ export type NewGameModeGame = typeof game_modes_games.$inferInsert
 
 export const genres = pgTable('genres', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull().unique(),
+    name: text('name').notNull(),
     slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
@@ -80,7 +80,7 @@ export type NewGameGenre = typeof game_genres.$inferInsert
 export const platforms = pgTable('platforms', {
     id: serial('id').primaryKey(),
     abbreviation: text('abbreviation'),
-    name: text('name').notNull().unique(),
+    name: text('name').notNull(),
     slug: text('slug').notNull().unique(),
     platform_type: integer('platform_type').references(() => platform_types.id),
     platform_family: integer('platform_family').references(() => platform_families.id),
@@ -99,7 +99,7 @@ export type NewPlatformType = typeof platform_types.$inferInsert
 
 export const platform_families = pgTable('platform_families', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull().unique(),
+    name: text('name').notNull(),
     slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
@@ -171,7 +171,7 @@ export type NewInvolvedCompany = typeof involved_companies.$inferInsert
 
 export const player_perspectives = pgTable('player_perspectives', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull().unique(),
+    name: text('name').notNull(),
     slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
@@ -193,7 +193,7 @@ export type NewGamePlayerPerspective = typeof game_player_perspectives.$inferIns
 
 export const keywords = pgTable('keywords', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull().unique(),
+    name: text('name').notNull(),
     slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
@@ -228,7 +228,7 @@ export type NewGameEngineGame = typeof game_engines_games.$inferInsert
 
 export const themes = pgTable('themes', {
     id: serial('id').primaryKey(),
-    name: text('name').notNull().unique(),
+    name: text('name').notNull(),
     slug: text('slug').notNull().unique(),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()

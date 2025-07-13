@@ -67,7 +67,6 @@ CREATE TABLE "game_modes" (
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "game_modes_name_unique" UNIQUE("name"),
 	CONSTRAINT "game_modes_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
@@ -131,7 +130,6 @@ CREATE TABLE "genres" (
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "genres_name_unique" UNIQUE("name"),
 	CONSTRAINT "genres_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
@@ -154,7 +152,6 @@ CREATE TABLE "keywords" (
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "keywords_name_unique" UNIQUE("name"),
 	CONSTRAINT "keywords_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
@@ -164,7 +161,6 @@ CREATE TABLE "platform_families" (
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "platform_families_name_unique" UNIQUE("name"),
 	CONSTRAINT "platform_families_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
@@ -185,7 +181,6 @@ CREATE TABLE "platforms" (
 	"platform_family" integer,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "platforms_name_unique" UNIQUE("name"),
 	CONSTRAINT "platforms_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
@@ -195,7 +190,6 @@ CREATE TABLE "player_perspectives" (
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "player_perspectives_name_unique" UNIQUE("name"),
 	CONSTRAINT "player_perspectives_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
@@ -205,7 +199,6 @@ CREATE TABLE "themes" (
 	"slug" text NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "themes_name_unique" UNIQUE("name"),
 	CONSTRAINT "themes_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
