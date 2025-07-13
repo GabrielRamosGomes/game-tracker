@@ -10,9 +10,8 @@ class GameModeService extends BaseService<typeof game_modes> {
     public async insertGameModesGames(data: NewGameModeGame[]) {
         const records = await gameModeGameService.bulkInsert(data)
         console.log(`Inserted ${records} game modes into the database`)
-        return records;
+        return records
     }
 }
 
 export const gameModeService = new GameModeService(game_modes, game_modes.id)
-

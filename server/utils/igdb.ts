@@ -327,8 +327,10 @@ class IGDB_Client {
             offset 0;
             sort id asc;
         `
-        const involvedCompanies = await this.batchRequest<InternalInvolvedCompany>('involved_companies', query)
-
+        const involvedCompanies = await this.batchRequest<InternalInvolvedCompany>(
+            'involved_companies',
+            query
+        )
 
         return involvedCompanies.map((company: InternalInvolvedCompany) => ({
             company_id: company.company,

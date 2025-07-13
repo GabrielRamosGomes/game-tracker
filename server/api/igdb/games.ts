@@ -1,13 +1,13 @@
-import type { 
-        NewGame,
-        NewGameEngineGame, 
-        NewGameGenre, 
-        NewGameKeyword, 
-        NewGameModeGame, 
-        NewGamePlatform, 
-        NewGamePlayerPerspective, 
-        NewGameTheme 
-    } from '~/server/database/schema'
+import type {
+    NewGame,
+    NewGameEngineGame,
+    NewGameGenre,
+    NewGameKeyword,
+    NewGameModeGame,
+    NewGamePlatform,
+    NewGamePlayerPerspective,
+    NewGameTheme
+} from '~/server/database/schema'
 import type { GameData } from '~/server/utils/igdb'
 
 // Services
@@ -25,12 +25,12 @@ import path from 'path'
 
 // Used to transform the data from IGDB API to the database schema
 type M2MInsertData = {
-    game_engines: NewGameEngineGame[],
-    game_modes: NewGameModeGame[],
-    genres: NewGameGenre[],
-    player_perspectives: NewGamePlayerPerspective[],
-    themes: NewGameTheme[],
-    platforms: NewGamePlatform[],
+    game_engines: NewGameEngineGame[]
+    game_modes: NewGameModeGame[]
+    genres: NewGameGenre[]
+    player_perspectives: NewGamePlayerPerspective[]
+    themes: NewGameTheme[]
+    platforms: NewGamePlatform[]
     keywords: NewGameKeyword[]
 }
 
@@ -38,13 +38,13 @@ export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
 
     let games = await getCachedGames()
-    
+
     if (!games || Object.keys(games).length <= 0) {
         console.log('No cached games found, fetching from IGDB API...')
         games = await igbd_client.fetchGames()
         await cacheGames(games)
     }
-    
+
     if (!games.length) {
         throw createError({
             statusCode: 400,
@@ -79,8 +79,8 @@ export default defineEventHandler(async () => {
             first_release_date: transformedDate
         })
 
-       if(game.themes !== undefined && Array.isArray(game.themes)) {
-            game.themes.forEach((theme) => { 
+        if (game.themes !== undefined && Array.isArray(game.themes)) {
+            game.themes.forEach((theme) => {
                 return m2mGameData.themes.push({
                     game_id: game.id as number,
                     theme_id: theme
@@ -88,7 +88,7 @@ export default defineEventHandler(async () => {
             })
         }
 
-        if(game.game_modes !== undefined && Array.isArray(game.game_modes)) {
+        if (game.game_modes !== undefined && Array.isArray(game.game_modes)) {
             game.game_modes.forEach((mode) => {
                 return m2mGameData.game_modes.push({
                     game_id: game.id as number,
@@ -97,7 +97,7 @@ export default defineEventHandler(async () => {
             })
         }
 
-        if(game.genres !== undefined && Array.isArray(game.genres)) {
+        if (game.genres !== undefined && Array.isArray(game.genres)) {
             game.genres.forEach((genre) => {
                 return m2mGameData.genres.push({
                     game_id: game.id as number,
@@ -106,7 +106,7 @@ export default defineEventHandler(async () => {
             })
         }
 
-        if(game.platforms !== undefined && Array.isArray(game.platforms)) {
+        if (game.platforms !== undefined && Array.isArray(game.platforms)) {
             game.platforms.forEach((platform) => {
                 return m2mGameData.platforms.push({
                     game_id: game.id as number,
@@ -115,7 +115,7 @@ export default defineEventHandler(async () => {
             })
         }
 
-        if(game.keywords !== undefined && Array.isArray(game.keywords)) {
+        if (game.keywords !== undefined && Array.isArray(game.keywords)) {
             game.keywords.forEach((keyword) => {
                 return m2mGameData.keywords.push({
                     game_id: game.id as number,
@@ -123,8 +123,8 @@ export default defineEventHandler(async () => {
                 })
             })
         }
-        
-        if(game.player_perspectives !== undefined && Array.isArray(game.player_perspectives)) {
+
+        if (game.player_perspectives !== undefined && Array.isArray(game.player_perspectives)) {
             game.player_perspectives.forEach((perspective) => {
                 return m2mGameData.player_perspectives.push({
                     game_id: game.id as number,
@@ -153,12 +153,11 @@ export default defineEventHandler(async () => {
         playerPerspectiveService.insertGamePlayerPerspectives(m2mGameData.player_perspectives),
         gameEngineService.insertGameEnginesGames(m2mGameData.game_engines)
     ])
-    
+
     return {
         message: `Inserted ${insertedRecords} games into the database`
     }
 })
-
 
 async function getCachedGames() {
     const CACHE_FILE = path.resolve('cache/igdb_games.json')

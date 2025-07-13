@@ -9,7 +9,7 @@ class PlatformService extends BaseService<typeof platforms> {
     public async insertGamePlatforms(data: NewGamePlatform[]) {
         const records = await gamePlatformService.bulkInsert(data)
         console.log(`Inserted ${records} game platforms into the database`)
-        return records;
+        return records
     }
 }
 

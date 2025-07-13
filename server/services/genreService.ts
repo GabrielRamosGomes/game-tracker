@@ -9,7 +9,7 @@ class GenreService extends BaseService<typeof genres> {
     public async insertGameGenres(data: NewGameGenre[]) {
         const records = await gameGenreService.bulkInsert(data)
         console.log(`Inserted ${records} game genres into the database`)
-        return records;
+        return records
     }
 }
 

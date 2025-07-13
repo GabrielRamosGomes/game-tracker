@@ -7,13 +7,16 @@ class GamePlayerPerspectiveService extends BaseService<typeof game_player_perspe
         return this.bulkInsert(playerPerspectives)
     }
 }
-const gamePlayerPerspectiveService = new GamePlayerPerspectiveService(game_player_perspectives, game_player_perspectives.id)
+const gamePlayerPerspectiveService = new GamePlayerPerspectiveService(
+    game_player_perspectives,
+    game_player_perspectives.id
+)
 
 class PlayerPerspectiveService extends BaseService<typeof player_perspectives> {
     public async insertGamePlayerPerspectives(data: NewGamePlayerPerspective[]) {
         const records = await gamePlayerPerspectiveService.bulkInsert(data)
         console.log(`Inserted ${records} game modes into the database`)
-        return records;
+        return records
     }
 }
 

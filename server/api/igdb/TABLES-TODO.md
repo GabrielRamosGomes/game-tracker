@@ -29,7 +29,7 @@
 - [x] game_platforms (needs games, platforms)
 - [x] game_themes (needs games, themes)
 - [x] game_modes_games (needs games, game_modes)
- This table has problem with the data, some games that are returned don't exist in the games table.
+      This table has problem with the data, some games that are returned don't exist in the games table.
 - [ ] involved_companies (needs companies, games)
 
 ### Insert Extras
@@ -37,5 +37,5 @@
 - [ ] time_to_beat (needs games)
 
 ### Backup files
-1.5-phase-backup - Contains all data from independent tables and dependent tables + all many-to-many tables from games table.
 
+1.5-phase-backup - Contains all data from independent tables and dependent tables + all many-to-many tables from games table.

@@ -12,9 +12,11 @@ interface ISO_3166_Country {
 class CountryService extends BaseService<typeof countries> {
     public async fetchCountries() {
         const searchParams = new URLSearchParams({
-            fields: 'name,ccn3',
+            fields: 'name,ccn3'
         })
-        const response = await fetch(`https://restcountries.com/v3.1/all?${searchParams.toString()}`)
+        const response = await fetch(
+            `https://restcountries.com/v3.1/all?${searchParams.toString()}`
+        )
         const countryList: Array<ISO_3166_Country> = await response.json()
 
         if (!response.ok) {
