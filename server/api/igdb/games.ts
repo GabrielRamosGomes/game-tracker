@@ -27,7 +27,7 @@ export default defineEventHandler(async () => {
 
     let games = await getCachedGames()
     
-    if (Object.keys(games).length <= 0) {
+    if (!games || Object.keys(games).length <= 0) {
         console.log('No cached games found, fetching from IGDB API...')
         games = await igbd_client.fetchGames()
         await cacheGames(games)
@@ -52,47 +52,47 @@ export default defineEventHandler(async () => {
     }
 
     for (const game of games as GameData[]) {
-        // const transformedDate = game.first_release_date
-        //     ? new Date((game.first_release_date as unknown as number) * 1000) // Convert Unix timestamp to JavaScript Date
-        //     : null
+        const transformedDate = game.first_release_date
+            ? new Date((game.first_release_date as unknown as number) * 1000) // Convert Unix timestamp to JavaScript Date
+            : null
 
-        // gamesData.push({
-        //     id: game.id,
-        //     slug: game.slug,
-        //     name: game.name,
-        //     aggregated_rating: game.aggregated_rating,
-        //     rating: game.rating,
-        //     storyline: game.storyline,
-        //     game_type: game.game_type,
-        //     first_release_date: transformedDate
-        // })
+        gamesData.push({
+            id: game.id,
+            slug: game.slug,
+            name: game.name,
+            aggregated_rating: game.aggregated_rating,
+            rating: game.rating,
+            storyline: game.storyline,
+            game_type: game.game_type,
+            first_release_date: transformedDate
+        })
 
-    //    if(game.themes !== undefined && Array.isArray(game.themes)) {
-    //         game.themes.forEach((theme) => { 
-    //             return m2mGameData.themes.push({
-    //                 game_id: game.id as number,
-    //                 theme_id: theme
-    //             })
-    //         })
-    //     }
+       if(game.themes !== undefined && Array.isArray(game.themes)) {
+            game.themes.forEach((theme) => { 
+                return m2mGameData.themes.push({
+                    game_id: game.id as number,
+                    theme_id: theme
+                })
+            })
+        }
 
-    //     if(game.game_modes !== undefined && Array.isArray(game.game_modes)) {
-    //         game.game_modes.forEach((mode) => {
-    //             return m2mGameData.game_modes.push({
-    //                 game_id: game.id as number,
-    //                 game_mode_id: mode
-    //             })
-    //         })
-    //     }
+        if(game.game_modes !== undefined && Array.isArray(game.game_modes)) {
+            game.game_modes.forEach((mode) => {
+                return m2mGameData.game_modes.push({
+                    game_id: game.id as number,
+                    game_mode_id: mode
+                })
+            })
+        }
 
-    //     if(game.genres !== undefined && Array.isArray(game.genres)) {
-    //         game.genres.forEach((genre) => {
-    //             return m2mGameData.genres.push({
-    //                 game_id: game.id as number,
-    //                 genre_id: genre
-    //             })
-    //         })
-    //     }
+        if(game.genres !== undefined && Array.isArray(game.genres)) {
+            game.genres.forEach((genre) => {
+                return m2mGameData.genres.push({
+                    game_id: game.id as number,
+                    genre_id: genre
+                })
+            })
+        }
 
         if(game.platforms !== undefined && Array.isArray(game.platforms)) {
             game.platforms.forEach((platform) => {
