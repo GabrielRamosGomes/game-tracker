@@ -204,9 +204,9 @@ CREATE TABLE "themes" (
 CREATE TABLE "time_to_beat" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"game_id" integer NOT NULL,
-	"hastily" integer NOT NULL,
-	"normally" integer NOT NULL,
-	"completely" integer NOT NULL,
+	"hastily" integer,
+	"normally" integer,
+	"completely" integer,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL
 );

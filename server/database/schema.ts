@@ -143,9 +143,9 @@ export const time_to_beat = pgTable('time_to_beat', {
     game_id: integer('game_id')
         .notNull()
         .references(() => games.id),
-    hastily: integer('hastily').notNull(),
-    normally: integer('normally').notNull(),
-    completely: integer('completely').notNull(),
+    hastily: integer('hastily'),
+    normally: integer('normally'),
+    completely: integer('completely'),
     updated_at: timestamp('updated_at').defaultNow().notNull(),
     created_at: timestamp('created_at').defaultNow().notNull()
 })

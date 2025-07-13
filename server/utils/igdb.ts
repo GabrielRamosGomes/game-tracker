@@ -12,7 +12,8 @@ import type {
     NewPlatformFamily,
     NewPlatformType,
     NewPlayerPerspective,
-    NewTheme
+    NewTheme,
+    NewTimeToBeat
 } from '../database/schema'
 
 export type GameData = M2MData & NewGame
@@ -341,6 +342,19 @@ class IGDB_Client {
             porting: company.porting,
             supporting: company.supporting
         })) as NewInvolvedCompany[]
+    }
+
+
+    public async fetchTimeToBeat() {
+        const query = `
+            fields completely,game_id,hastily,normally;
+            limit 500;
+            offset 0;
+            sort id asc;
+        `
+        const timeToBeat = await this.batchRequest<NewTimeToBeat>('game_time_to_beats', query)
+
+        return timeToBeat;
     }
 }
 
