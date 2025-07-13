@@ -135,7 +135,6 @@ CREATE TABLE "genres" (
 --> statement-breakpoint
 CREATE TABLE "involved_companies" (
 	"id" serial PRIMARY KEY NOT NULL,
-	"description" text NOT NULL,
 	"company_id" integer NOT NULL,
 	"game_id" integer NOT NULL,
 	"developer" boolean NOT NULL,

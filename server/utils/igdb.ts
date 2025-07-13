@@ -6,6 +6,7 @@ import type {
     NewGameMode,
     NewGameType,
     NewGenre,
+    NewInvolvedCompany,
     NewKeyword,
     NewPlatform,
     NewPlatformFamily,
@@ -303,6 +304,40 @@ class IGDB_Client {
         const themes = await this.request<NewTheme[]>('themes', query)
 
         return themes
+    }
+
+    /**
+     * Fetches all involved companies from IGDB API
+     */
+    public async fetchInvolvedCompanies() {
+        // This is here because IGDB's involved_companies endpoint does not return the same structure as the database schema
+        // Ex: I need game_id and company_id, but it returns game and company
+        type InternalInvolvedCompany = {
+            company: number
+            game: number
+            developer: boolean
+            publisher: boolean
+            porting: boolean
+            supporting: boolean
+        }
+
+        const query = `
+            fields company,developer,game,porting,publisher,supporting;
+            limit 500;
+            offset 0;
+            sort id asc;
+        `
+        const involvedCompanies = await this.batchRequest<InternalInvolvedCompany>('involved_companies', query)
+
+
+        return involvedCompanies.map((company: InternalInvolvedCompany) => ({
+            company_id: company.company,
+            game_id: company.game,
+            developer: company.developer,
+            publisher: company.publisher,
+            porting: company.porting,
+            supporting: company.supporting
+        })) as NewInvolvedCompany[]
     }
 }
 

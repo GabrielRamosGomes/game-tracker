@@ -153,7 +153,6 @@ export type NewTimeToBeat = typeof time_to_beat.$inferInsert
 
 export const involved_companies = pgTable('involved_companies', {
     id: serial('id').primaryKey(),
-    description: text('description').notNull(),
     company_id: integer('company_id')
         .notNull()
         .references(() => companies.id),
