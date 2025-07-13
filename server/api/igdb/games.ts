@@ -5,6 +5,7 @@ import type { GameData } from '~/server/utils/igdb'
 import { gameService } from '~/server/services/gameService'
 import { themesService } from '~/server/services/themesService'
 import { gameModeService } from '~/server/services/gameModeService'
+import { genreService } from '~/server/services/genreService'
 
 import fs from 'fs/promises'
 import path from 'path'
@@ -65,20 +66,29 @@ export default defineEventHandler(async () => {
         //     first_release_date: transformedDate
         // })
 
-       if(game.themes !== undefined && Array.isArray(game.themes)) {
-            game.themes.forEach((theme) => { 
-                return m2mGameData.themes.push({
-                    game_id: game.id as number,
-                    theme_id: theme
-                })
-            })
-        }
+    //    if(game.themes !== undefined && Array.isArray(game.themes)) {
+    //         game.themes.forEach((theme) => { 
+    //             return m2mGameData.themes.push({
+    //                 game_id: game.id as number,
+    //                 theme_id: theme
+    //             })
+    //         })
+    //     }
 
-        if(game.game_modes !== undefined && Array.isArray(game.game_modes)) {
-            game.game_modes.forEach((mode) => {
-                return m2mGameData.game_modes.push({
+    //     if(game.game_modes !== undefined && Array.isArray(game.game_modes)) {
+    //         game.game_modes.forEach((mode) => {
+    //             return m2mGameData.game_modes.push({
+    //                 game_id: game.id as number,
+    //                 game_mode_id: mode
+    //             })
+    //         })
+    //     }
+
+        if(game.genres !== undefined && Array.isArray(game.genres)) {
+            game.genres.forEach((genre) => {
+                return m2mGameData.genres.push({
                     game_id: game.id as number,
-                    game_mode_id: mode
+                    genre_id: genre
                 })
             })
         }
@@ -87,7 +97,8 @@ export default defineEventHandler(async () => {
     const insertedRecords = await gameService.bulkInsert(gamesData)
     await Promise.all([
         themesService.insertGameThemes(m2mGameData.themes),
-        gameModeService.insertGameModesGames(m2mGameData.game_modes)
+        gameModeService.insertGameModesGames(m2mGameData.game_modes),
+        genreService.insertGameGenres(m2mGameData.genres),
     ])
     
     return {
