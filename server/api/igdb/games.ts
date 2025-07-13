@@ -6,6 +6,7 @@ import { gameService } from '~/server/services/gameService'
 import { themesService } from '~/server/services/themesService'
 import { gameModeService } from '~/server/services/gameModeService'
 import { genreService } from '~/server/services/genreService'
+import { platformService } from '~/server/services/platformService'
 
 import fs from 'fs/promises'
 import path from 'path'
@@ -52,7 +53,7 @@ export default defineEventHandler(async () => {
 
     for (const game of games as GameData[]) {
         // const transformedDate = game.first_release_date
-        //     ? new Date((game.first_release_date as unknown as number) * 1000)
+        //     ? new Date((game.first_release_date as unknown as number) * 1000) // Convert Unix timestamp to JavaScript Date
         //     : null
 
         // gamesData.push({
@@ -84,11 +85,20 @@ export default defineEventHandler(async () => {
     //         })
     //     }
 
-        if(game.genres !== undefined && Array.isArray(game.genres)) {
-            game.genres.forEach((genre) => {
-                return m2mGameData.genres.push({
+    //     if(game.genres !== undefined && Array.isArray(game.genres)) {
+    //         game.genres.forEach((genre) => {
+    //             return m2mGameData.genres.push({
+    //                 game_id: game.id as number,
+    //                 genre_id: genre
+    //             })
+    //         })
+    //     }
+
+        if(game.platforms !== undefined && Array.isArray(game.platforms)) {
+            game.platforms.forEach((platform) => {
+                return m2mGameData.platforms.push({
                     game_id: game.id as number,
-                    genre_id: genre
+                    platform_id: platform
                 })
             })
         }
@@ -99,6 +109,7 @@ export default defineEventHandler(async () => {
         themesService.insertGameThemes(m2mGameData.themes),
         gameModeService.insertGameModesGames(m2mGameData.game_modes),
         genreService.insertGameGenres(m2mGameData.genres),
+        platformService.insertGamePlatforms(m2mGameData.platforms),
     ])
     
     return {

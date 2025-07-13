@@ -26,7 +26,7 @@
 - [x] game_genres (needs games, genres)
 - [ ] game_keywords (needs games, keywords)
 - [ ] game_player_perspectives (needs games, player_perspectives)
-- [ ] game_platforms (needs games, platforms)
+- [x] game_platforms (needs games, platforms)
 - [x] game_themes (needs games, themes)
 - [x] game_modes_games (needs games, game_modes)
 - [ ] involved_companies (needs companies, games)
@@ -36,5 +36,9 @@
 - [ ] time_to_beat (needs games)
 
 ### Backup files
-1.5-phase-backup - Contains all data from independent tables and dependent tables + game_genres, game_themes, game_modes_games from the link tables.
+1.5-phase-backup - Contains all data from independent tables and dependent tables +
+        - game_genres
+        - game_platforms
+        - game_themes
+        - game_modes_games
 
