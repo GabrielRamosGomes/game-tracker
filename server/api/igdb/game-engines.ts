@@ -1,4 +1,4 @@
-import { gameEngines } from '~/server/services/gameEngineService'
+import { gameEngineService } from '~/server/services/gameEngineService'
 
 export default defineEventHandler(async () => {
     const igbd_client = useIGBD()
@@ -11,7 +11,7 @@ export default defineEventHandler(async () => {
         })
     }
 
-    const insertedRecords = await gameEngines.bulkInsert(engines)
+    const insertedRecords = await gameEngineService.bulkInsert(engines)
 
     return {
         message: `Inserted ${insertedRecords} game engines into the database`

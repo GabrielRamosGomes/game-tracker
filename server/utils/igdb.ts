@@ -1,10 +1,12 @@
 import type {
     NewCompany,
     NewCompanyStatus,
+    NewGame,
     NewGameEngine,
     NewGameMode,
     NewGameType,
     NewGenre,
+    NewInvolvedCompany,
     NewKeyword,
     NewPlatform,
     NewPlatformFamily,
@@ -12,6 +14,18 @@ import type {
     NewPlayerPerspective,
     NewTheme
 } from '../database/schema'
+
+export type GameData = M2MData & NewGame
+
+export type M2MData = {
+    game_engines: number[]
+    game_modes: number[]
+    genres: number[]
+    keywords: number[]
+    player_perspectives: number[]
+    platforms: number[]
+    themes: number[]
+}
 
 /**
  * Wrapper for the IGDB API
@@ -100,13 +114,15 @@ class IGDB_Client {
      * Fetches all games from IGDB API, this might take a while since there are a lot of games
      * @param batchSize The number of records to fetch in each request
      */
-    public async fetchAllGames(batchSize: number = 500) {
+    public async fetchGames(batchSize: number = 500) {
         const query = `
-            fields name, game_type, genres, first_release_date, rating, storyline, url, involved_companies, game_status, expansions, dlcs, age_ratings, collections, cover, aggregated_rating, game_engines;
+            fields aggregated_rating, storyline, game_type, name, slug, first_release_date, 
+                themes, game_engines, genres, game_modes, keywords, player_perspectives, platforms;
             limit ${batchSize};
             offset 0;
+            sord id asc;
         `
-        const allGames = await this.batchRequest<unknown[]>('games', query, batchSize)
+        const allGames = await this.batchRequest<GameData>('games', query, batchSize)
 
         return allGames
     }
@@ -161,6 +177,7 @@ class IGDB_Client {
     public async fetchGameTypes() {
         const query = `
             fields type;
+            limit 500;
             offset 0;
             sort id asc;
         `
@@ -175,6 +192,7 @@ class IGDB_Client {
     public async fetchGenres() {
         const query = `
             fields name,slug;
+            limit 500;
             offset 0;
             sort id asc;
         `
@@ -189,6 +207,7 @@ class IGDB_Client {
     public async fetchKeywords() {
         const query = `
             fields name,slug;
+            limit 500;
             offset 0;
             sort id asc;
         `
@@ -203,6 +222,7 @@ class IGDB_Client {
     public async fetchPlatformFamilies() {
         const query = `
             fields name,slug;
+            limit 500;
             offset 0;
             sort id asc;
         `
@@ -217,6 +237,7 @@ class IGDB_Client {
     public async fetchPlatformTypes() {
         const query = `
             fields name;
+            limit 500;
             offset 0;
             sort id asc;
         `
@@ -231,6 +252,7 @@ class IGDB_Client {
     public async fetchPlayerPerspectives() {
         const query = `
             fields name,slug;
+            limit 500;
             offset 0;
             sort id asc;
         `
@@ -276,12 +298,49 @@ class IGDB_Client {
     public async fetchThemes() {
         const query = `
             fields name,slug;
+            limit 500;
             offset 0;
             sort id asc;
         `
         const themes = await this.request<NewTheme[]>('themes', query)
 
         return themes
+    }
+
+    /**
+     * Fetches all involved companies from IGDB API
+     */
+    public async fetchInvolvedCompanies() {
+        // This is here because IGDB's involved_companies endpoint does not return the same structure as the database schema
+        // Ex: I need game_id and company_id, but it returns game and company
+        type InternalInvolvedCompany = {
+            company: number
+            game: number
+            developer: boolean
+            publisher: boolean
+            porting: boolean
+            supporting: boolean
+        }
+
+        const query = `
+            fields company,developer,game,porting,publisher,supporting;
+            limit 500;
+            offset 0;
+            sort id asc;
+        `
+        const involvedCompanies = await this.batchRequest<InternalInvolvedCompany>(
+            'involved_companies',
+            query
+        )
+
+        return involvedCompanies.map((company: InternalInvolvedCompany) => ({
+            company_id: company.company,
+            game_id: company.game,
+            developer: company.developer,
+            publisher: company.publisher,
+            porting: company.porting,
+            supporting: company.supporting
+        })) as NewInvolvedCompany[]
     }
 }
 

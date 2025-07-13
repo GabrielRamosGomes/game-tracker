@@ -6,12 +6,17 @@ interface ISO_3166_Country {
     name: {
         common: string
     }
-    ccn3: number
+    ccn3: string
 }
 
 class CountryService extends BaseService<typeof countries> {
     public async fetchCountries() {
-        const response = await fetch('https://restcountries.com/v3.1/all')
+        const searchParams = new URLSearchParams({
+            fields: 'name,ccn3'
+        })
+        const response = await fetch(
+            `https://restcountries.com/v3.1/all?${searchParams.toString()}`
+        )
         const countryList: Array<ISO_3166_Country> = await response.json()
 
         if (!response.ok) {
@@ -19,9 +24,10 @@ class CountryService extends BaseService<typeof countries> {
         }
 
         const countries: NewCountry[] = countryList.map((country: ISO_3166_Country) => {
+            const codeNumber = parseInt(country.ccn3)
             return {
                 name: country.name.common,
-                code: country.ccn3 ?? null
+                code: isNaN(codeNumber) ? null : codeNumber
             }
         })
 

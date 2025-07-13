@@ -18,14 +18,18 @@
 - [x] companies (needs countries, company_status)
 - [x] platforms (needs platform_families, platform_types)
 - [x] game_engines
-- [ ] games (needs game_engines, game_modes, game_types)
+- [x] games (needs game_engines, game_modes, game_types)
 
 ### Insert Link (Many-to-Many) Tables
 
-- [ ] game_engines_games (needs games, game_engines)
-- [ ] game_genres (needs games, genres)
-- [ ] game_keywords (needs games, keywords)
-- [ ] game_player_perspectives (needs games, player_perspectives)
+- [x] game_engines_games (needs games, game_engines)
+- [x] game_genres (needs games, genres)
+- [x] game_keywords (needs games, keywords)
+- [x] game_player_perspectives (needs games, player_perspectives)
+- [x] game_platforms (needs games, platforms)
+- [x] game_themes (needs games, themes)
+- [x] game_modes_games (needs games, game_modes)
+      This table has problem with the data, some games that are returned don't exist in the games table.
 - [ ] involved_companies (needs companies, games)
 
 ### Insert Extras
@@ -34,5 +38,4 @@
 
 ### Backup files
 
-- 1-phase-backup - Contains all tables from "Insert Independent Tables"
-- 1.5-phase-backup - All the above + game_engines & platforms & companies from dependent tables
+1.5-phase-backup - Contains all data from independent tables and dependent tables + all many-to-many tables from games table.
