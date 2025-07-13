@@ -205,6 +205,7 @@ class IGDB_Client {
     public async fetchKeywords() {
         const query = `
             fields name,slug;
+            limit 500;
             offset 0;
             sort id asc;
         `
